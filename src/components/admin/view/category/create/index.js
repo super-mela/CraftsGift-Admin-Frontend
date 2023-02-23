@@ -40,13 +40,12 @@ export default class MainCategory extends Component {
     handlesubcategory = async (e) => {
         this.setState({ subCategory: [...this.state.subCategory, this.state.subSingle] })
         this.setState({ subSingle: "" })
-        console.log(this.state.subCategory)
     }
 
     handleRemovesubcategory = async (index) => {
         this.state.subCategory.splice(index, 1)
         this.setState({ subSingle: "" })
-        console.log(this.state.subCategory)
+
     }
 
     handleSubmit = async event => {

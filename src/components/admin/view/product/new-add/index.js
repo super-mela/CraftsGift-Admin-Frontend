@@ -27,42 +27,49 @@ export default class Newproduct extends Component {
       tags: [],
       desc: "",
       discount: 0,
+      singleTag: ""
     };
   }
+
   handleBack() {
     this.props.history.goBack();
   }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
   onFileChange = (event) => {
     this.setState({ image: event.target.files[0] });
   };
+
   handleContentChange = (contentHtml) => {
     this.setState({
       content: contentHtml,
     });
   };
+
   handleCategory = async (value) => {
     this.setState({ selectedCategory: value });
     let category = value;
     let list = await GetCategoryDetails.getSelectSubCategory(category);
     this.setState({ getList: list.data.subCategories });
   };
+
   handleSubCategory = async (value) => {
     this.setState({ selectedSubCategory: value });
-    console.log(value)
-    // let list = await GetCategoryDetails.getAllSubChildCategory(value);
     this.setState({ blockhide: true });
   };
+
   handleChildCategory = async (value) => {
     this.setState({ selectedChildCategory: value });
   };
+
   caculationTable = () => {
     let price = this.state.price;
     let net = this.state.net;
     if (price > 0 && net > 0) {
-      let discount = Math.round((net / price) * 100);
+      let discount = Math.round(((price - net) / price) * 100);
 
       this.setState({
         discount: discount,
@@ -74,10 +81,23 @@ export default class Newproduct extends Component {
       );
     }
   };
+
+  handleAddTag = async (e) => {
+    this.setState({ tags: [...this.state.tags, this.state.singleTag] })
+    this.setState({ singleTag: "" })
+  }
+
+  handleRemoveTags = async (index) => {
+    this.state.tags.splice(index, 1)
+    this.setState({ singleTag: "" })
+
+  }
+
   handleCheckPrice() {
     this.caculationTable();
     this.setState({ toggle: !this.state.toggle });
   }
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ isLoaded: true });
@@ -252,19 +272,6 @@ export default class Newproduct extends Component {
                     </div>
                     <div className="col-lg-4 col-md-4">
                       <div className="form-group">
-                        <label className="form-label">Tags*</label>
-                        <input
-                          type="textarea"
-                          className="form-control"
-                          placeholder="Tags"
-                          name="tags"
-                          value={this.state.tags}
-                          onChange={(e) => this.handleChange(e)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-md-4">
-                      <div className="form-group">
                         <label className="form-label">image Link*</label>
                         <input
                           type="text"
@@ -274,6 +281,32 @@ export default class Newproduct extends Component {
                           value={this.state.image}
                           onChange={(e) => this.handleChange(e)}
                         />
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-md-4">
+                      <div className="form-group">
+                        <label className="form-label">Tags*</label>
+
+
+                        <div className='d-flex'>
+
+                          <input
+                            type="textarea"
+                            className="form-control"
+                            placeholder="Tags"
+                            name="singleTag"
+                            value={this.state.singleTag}
+                            onChange={(e) => this.handleChange(e)}
+                          />
+                          <button className='btn' onClick={this.handleAddTag}>+</button>
+                        </div>
+
+                        {this.state.tags.map((item, key) => (
+                          <div className='d-flex justify-content-between mx-4 bg-light align-items-center' key={key}>
+                            <label className="form-label mb-0 ml-2">{item}</label>
+                            <button className='btn' onClick={() => this.handleRemoveTags(key)}>x</button>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

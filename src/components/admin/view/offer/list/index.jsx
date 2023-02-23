@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
     Button, Typography
 } from "@material-ui/core";
-import { GetCategoryDetails } from '../../../../services';
+import { GetOfferDetails } from '../../../../services';
 import swal from 'sweetalert';
 
 export default class List extends Component {
@@ -18,20 +18,24 @@ export default class List extends Component {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
-            year = d.getFullYear();
+            year = d.getFullYear(),
+            houre = d.getHours(),
+            min = '' + d.getMinutes(),
+            sec = "" + d.getSeconds();
         if (month.length < 2)
             month = '0' + month;
         if (day.length < 2)
             day = '0' + day;
-        return [year, month, day].join('-');
+        return [year, month, day, " ", sec, min, houre].join('-');
     }
-    async getChildCategory() {
-        let list = await GetCategoryDetails.getCategoryList()
-        // let list = await GetCategoryDetails.getChildCategoryList();
+    async getOffer() {
+        let list = await GetOfferDetails.getOfferList()
+        console.log(list.data)
+        // let list = await GetOfferDetails.getChildCategoryList();
         this.setState({ getdata: list.data })
     }
     async componentDidMount() {
-        this.getChildCategory();
+        this.getOffer();
     }
     async handlDeleteById(id) {
         swal({
@@ -43,9 +47,9 @@ export default class List extends Component {
         })
             .then(async (success) => {
                 if (success) {
-                    let value = await GetCategoryDetails.getChildDeleteById(id);
+                    let value = await GetOfferDetails.getOfferDeleteById(id);
                     if (value) {
-                        this.getChildCategory();
+                        this.getOffer();
                     }
                 }
             });
@@ -64,7 +68,7 @@ export default class List extends Component {
                 </div>
                 <ol className="breadcrumb mb-30">
                     <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li className="breadcrumb-item active">Categories</li>
+                    <li className="breadcrumb-item active">Offers</li>
                 </ol>
                 <div className="row justify-content-between">
                     <div className="col-lg-12">
@@ -112,9 +116,12 @@ export default class List extends Component {
                                         <thead>
                                             <tr>
                                                 <th style={{ width: 60 }}><input type="checkbox" className="check-all" /></th>
-                                                <th scope="col">Category    </th>
-                                                <th scope="col">Sub Category</th>
-                                                <th scope="col">Item Name</th>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Coupon</th>
+                                                <th scope="col">Discount</th>
+                                                <th scope="col">Least Amount</th>
+                                                <th scope="col">Expires In</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -123,14 +130,22 @@ export default class List extends Component {
                                                 getdata.map((row, index) => (
                                                     <tr key={index}>
                                                         <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
-                                                        <td>{row.categoryName}</td>
-                                                        <td>{row.subCategories.map((item) => (<div>{item} <br /></div>))}</td>
                                                         <td>
-                                                            <span className="delivery-time">{this.formatDate(row.date)}</span>
+                                                            <div className="cate-img-5">
+                                                                <img src={row.image} alt={row.name} />
+                                                                {/* <img src={API_URL + "/product/" + row.photo} alt={row.name} /> */}
+                                                            </div>
+                                                        </td>
+                                                        <td>{row.name}</td>
+                                                        <td>{row.coupon}</td>
+                                                        <td>{row.discount}%</td>
+                                                        <td>{row.leastAmount}$</td>
+                                                        <td>
+                                                            <span className="delivery-time">{this.formatDate(row.expiresIn)}</span>
                                                         </td>
                                                         <td className="action-btns">
                                                             {/* <SubEdit state={row} /> */}
-                                                            <Typography className="delete-btn" onClick={(e) => this.handlDeleteById(row.id)} ><i className="fas fa-trash-alt" /></Typography>
+                                                            <Typography className="delete-btn" onClick={(e) => this.handlDeleteById(row._id)} ><i className="fas fa-trash-alt" /></Typography>
                                                         </td>
                                                     </tr>
                                                 ))

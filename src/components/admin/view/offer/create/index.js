@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import {
     Button
 } from "@material-ui/core";
-import { GetCategoryDetails } from '../../../../services';
+import { GetOfferDetails } from '../../../../services';
 import Edit from './edit'
 import swal from 'sweetalert';
-export default class MainCategory extends Component {
+export default class MainOffer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categoryName: '', subCategory: [], image: "", getList: [], subSingle: ''
+            name: '', coupon: "", discount: "", image: "", leastAmount: "", expiresIn: "", getList: [],
         }
     }
     handleChange(e) {
@@ -18,54 +18,46 @@ export default class MainCategory extends Component {
     handleBack() {
         this.props.history.goBack();
     }
-    async getCategory() {
-        let list = await GetCategoryDetails.getCategoryList();
+    async getOffer() {
+        let list = await GetOfferDetails.getOfferList();
         this.setState({ getList: list.data })
     }
     async componentDidMount() {
-        this.getCategory();
+        this.getOffer();
     }
     formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
-            year = d.getFullYear();
+            year = d.getFullYear(),
+            houre = d.getHours(),
+            min = '' + d.getMinutes(),
+            sec = "" + d.getSeconds();
         if (month.length < 2)
             month = '0' + month;
         if (day.length < 2)
             day = '0' + day;
-        return [year, month, day].join('-');
-    }
-
-    handlesubcategory = async (e) => {
-        this.setState({ subCategory: [...this.state.subCategory, this.state.subSingle] })
-        this.setState({ subSingle: "" })
-        console.log(this.state.subCategory)
-    }
-
-    handleRemovesubcategory = async (index) => {
-        this.state.subCategory.splice(index, 1)
-        this.setState({ subSingle: "" })
-        console.log(this.state.subCategory)
+        return [year, month, day, " ", sec, min, houre].join('-');
     }
 
     handleSubmit = async event => {
         event.preventDefault();
-        const { categoryName, subCategory, image } = this.state;
-        let data = { categoryName: categoryName, subCategories: subCategory, image: image };
+        const { name, coupon, discount, leastAmount, expiresIn, image } = this.state;
+        let data = { name: name, coupon: coupon, discount: discount, leastAmount: leastAmount, expiresIn: expiresIn, image: image };
+        console.log(data)
         swal({
             title: "Are you sure?",
-            text: "You want to Add New Location",
+            text: "You want to Add New Offer",
             icon: "warning",
             buttons: true,
             dangerMode: true,
         })
             .then(async (success) => {
                 if (success) {
-                    let list = await GetCategoryDetails.createCategoryList(data);
+                    let list = await GetOfferDetails.createOfferList(data);
                     if (list) {
-                        this.setState({ categoryName: "", subCategory: [], image: "" })
-                        this.getCategory();
+                        this.setState({ name: "", coupon: "", discount: "", leastAmount: "", expiresIn: "", image: "" })
+                        this.getOffer();
                     }
                 }
             });
@@ -95,23 +87,30 @@ export default class MainCategory extends Component {
                             <div className="card-body-table">
                                 <div className="news-content-right pd-20">
                                     <div className="form-group">
-                                        <label className="form-label">Category Name*</label>
-                                        <input type="text" className="form-control" placeholder="Category name" name="categoryName" value={this.state.categoryName} onChange={(e) => this.handleChange(e)} />
+                                        <label className="form-label">Name*</label>
+                                        <input type="text" className="form-control" placeholder="name" name="name" value={this.state.name} onChange={(e) => this.handleChange(e)} />
                                     </div>
                                     <div className="form-group mb-0">
-                                        <label className="form-label">SubCategory*</label>
+                                        <label className="form-label">Coupon*</label>
                                         <div className='d-flex'>
-                                            <input type="text" className="form-control" placeholder="SubCategory" name="subSingle" value={this.state.subSingle} onChange={(e) => this.handleChange(e)} />
-                                            <button className='btn' onClick={this.handlesubcategory}>+</button>
+                                            <input type="text" className="form-control" placeholder="Coupon" name="coupon" value={this.state.coupon} onChange={(e) => this.handleChange(e)} />
                                         </div>
-
-                                        {this.state.subCategory.map((item, key) => (
-                                            <div className='d-flex justify-content-between mx-4 bg-light align-items-center' key={key}>
-                                                <label className="form-label mb-0 ml-2">{item}</label>
-                                                <button className='btn' onClick={() => this.handleRemovesubcategory(key)}>x</button>
-                                            </div>
-                                        ))}
-
+                                    </div>
+                                    <div className="form-group mb-0">
+                                        <label className="form-label">Discount*</label>
+                                        <div className='d-flex'>
+                                            <input type="text" className="form-control" placeholder="discount" name="discount" value={this.state.discount} onChange={(e) => this.handleChange(e)} />
+                                        </div>
+                                    </div>     <div className="form-group mb-0">
+                                        <label className="form-label">Least Amount*</label>
+                                        <div className='d-flex'>
+                                            <input type="text" className="form-control" placeholder="Least Amount" name="leastAmount" value={this.state.leastAmount} onChange={(e) => this.handleChange(e)} />
+                                        </div>
+                                    </div>     <div className="form-group mb-0">
+                                        <label className="form-label">Expired Date*</label>
+                                        <div className='d-flex'>
+                                            <input type="datetime-local" className="form-control" placeholder="Expires In" name="expiresIn" value={this.state.expiresIn} onChange={(e) => this.handleChange(e)} />
+                                        </div>
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Image*</label>
@@ -136,9 +135,11 @@ export default class MainCategory extends Component {
                                                     <thead>
                                                         <tr>
                                                             <th style={{ width: 60 }}><input type="checkbox" className="check-all" /></th>
-                                                            <th scope="col">Category Name</th>
-                                                            <th scope="col">SubCategory</th>
-                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Coupon</th>
+                                                            <th scope="col">Discount</th>
+                                                            <th scope="col">Least Amount</th>
+                                                            <th scope="col">Expire Date</th>
                                                             <th scope="col">Action</th>
                                                         </tr>
                                                     </thead>
@@ -147,13 +148,15 @@ export default class MainCategory extends Component {
                                                             self.map((row, index) => (
                                                                 <tr key={index}>
                                                                     <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
-                                                                    <td>{row.categoryName}</td>
-                                                                    <td>{row.subCategories.map((item => (<div>{item}<br /></div>)))}</td>
+                                                                    <td>{row.name}</td>
+                                                                    <td>{row.coupon}</td>
+                                                                    <td>{row.discount}</td>
+                                                                    <td>{row.leastAmount}</td>
                                                                     <td>
-                                                                        <span className="delivery-time">{this.formatDate(row.date)}</span>
+                                                                        <span className="delivery-time">{this.formatDate(row.expiresIn)}</span>
                                                                     </td>
                                                                     <td className="action-btns">
-                                                                        <Edit state={row} />
+                                                                        <Edit state={row} getOffer={this.getOffer} />
                                                                     </td>
                                                                 </tr>
                                                             ))

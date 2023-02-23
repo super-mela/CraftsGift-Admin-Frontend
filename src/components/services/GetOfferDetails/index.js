@@ -2,9 +2,10 @@ import api from '../../ApiConfig';
 import { Apis } from '../../../config';
 import { NotificationManager } from 'react-notifications';
 
-const createSupplierList = async (data) => {
+
+const createOfferList = async (data) => {
     try {
-        let result = await api.post(Apis.CreateSupplierList,data);
+        let result = await api.post(Apis.CreateOfferList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -16,9 +17,22 @@ const createSupplierList = async (data) => {
     }
 };
 
-const createSupplierProductList = async (data) => {
+const getOfferList = async () => {
     try {
-        let result = await api.post(Apis.CreateSupplierProduct,data);
+        let result = await api.get(Apis.GetAllOfferList);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+const getUpdateOfferList = async (data) => {
+    try {
+        let result = await api.post(Apis.GetUpdateOfferList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -31,9 +45,10 @@ const createSupplierProductList = async (data) => {
 };
 
 
-const getAllSellerList = async () => {
+
+const getOfferDeleteById = async (id) => {
     try {
-        let result = await api.get(Apis.GetAllSellerList);
+        let result = await api.delete(Apis.GetOfferDeleteById, { params: { id } });
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -45,38 +60,10 @@ const getAllSellerList = async () => {
     }
 };
 
-const getUpdateSellerList = async (data) => {
-    try {
-        let result = await api.post(Apis.GetUpdateSellerList,data);
-        if (result.data.error) {
-            NotificationManager.error(result.data.error);
-            return null;
-        }
-        return result.data;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-};
-
-const getDeleteSellerList = async (id) => {
-    try {
-        let result = await api.delete(Apis.GetDeleteSellerList,{params: {id}});
-        if (result.data.error) {
-            NotificationManager.error(result.data.error);
-            return null;
-        }
-        return result.data;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-};
 
 export default {
-    createSupplierList,
-    createSupplierProductList,
-    getAllSellerList,
-    getUpdateSellerList,
-    getDeleteSellerList
+    createOfferList,
+    getOfferList,
+    getOfferDeleteById,
+    getUpdateOfferList,
 };

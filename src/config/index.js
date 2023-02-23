@@ -16,12 +16,11 @@ const Apis = {
   GetOrderByStatus: `${API_URL}/api/order/status`,
   GetAllStatusOrder: `${API_URL}/api/order/count`,
 
-  //Vendor api
-  CreateSupplierList: `${API_URL}/api/supplier/create`,
-  CreateSupplierProduct: `${API_URL}/api/supplier/product-add`,
-  GetAllSellerList: `${API_URL}/api/supplier/list`,
-  GetUpdateSellerList: `${API_URL}/api/supplier/update`,
-  GetDeleteSellerList: `${API_URL}/api/supplier/delete`,
+  //Offer api
+  CreateOfferList: `${API_URL}/api/offer/create`,
+  GetAllOfferList: `${API_URL}/api/offer/list`,
+  GetUpdateOfferList: `${API_URL}/api/offer/update`,
+  GetOfferDeleteById: `${API_URL}/api/offer/delete`,
 
   //location api
   GetAllLocationCreate: `${API_URL}/api/location/create`,

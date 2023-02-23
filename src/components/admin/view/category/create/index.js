@@ -45,7 +45,6 @@ export default class MainCategory extends Component {
     handleRemovesubcategory = async (index) => {
         this.state.subCategory.splice(index, 1)
         this.setState({ subSingle: "" })
-
     }
 
     handleSubmit = async event => {
@@ -152,7 +151,7 @@ export default class MainCategory extends Component {
                                                                         <span className="delivery-time">{this.formatDate(row.date)}</span>
                                                                     </td>
                                                                     <td className="action-btns">
-                                                                        <Edit state={row} />
+                                                                        <Edit state={row} getCategory={this.getCategory} />
                                                                     </td>
                                                                 </tr>
                                                             ))

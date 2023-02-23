@@ -5,14 +5,16 @@ import { GetCategoryDetails } from '../../../../../services';
 export default class Edit extends Component {
     constructor(props) {
         super(props);
-        const { name, slug } = this.props.state;
+        const { _id, categoryName, subCategories, image } = this.props.state;
         this.state = {
-            name: name, slug: slug
+            _id: _id, categoryName: categoryName, subCategories: subCategories, image: image, subSingle: ''
         }
     }
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
+
     handleOpen() {
         this.setState({ open: !this.state.open, loading: true })
     }
@@ -20,13 +22,29 @@ export default class Edit extends Component {
     handleClose() {
         this.setState({ open: !this.state.open })
     }
+
+    handlesubcategories = async (e) => {
+        this.setState({ subCategories: [...this.state.subCategories, this.state.subSingle] })
+        this.setState({ subSingle: "" })
+    }
+
+    handleRemovesubcategories = async (index) => {
+        this.state.subCategories.splice(index, 1)
+        this.setState({ subSingle: "" })
+    }
+
     async handleSubmit(e) {
-        let data = { id: this.props.state.id, name: this.state.name, slug: this.state.slug}
+        const { _id, categoryName, subCategories, image } = this.state
+        let data = { _id: _id, categoryName: categoryName, subCategories: subCategories, image: image }
+        console.log(data)
         let list = await GetCategoryDetails.getUpdateCategoryList(data);
-        if(list){
+        if (list) {
+            this.props.getCategory()
+            this.handleClose()
             // window.location.reload();
         }
     }
+
     render() {
         return (
             <div >
@@ -40,23 +58,38 @@ export default class Edit extends Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h5 className="modal-title" id="exampleModalLabel">Update Location</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>this.handleClose()}>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => this.handleClose()}>
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div className="modal-body">
                                 <div className="form-group">
-                                    <label className="form-label">Name*</label>
-                                    <input type="text" className="form-control" name="name"value={this.state.name} onChange={(e) => this.handleChange(e)} />
+                                    <label className="form-label">Category Name*</label>
+                                    <input type="text" className="form-control" placeholder="Category name" name="categoryName" value={this.state.categoryName} onChange={(e) => this.handleChange(e)} />
+                                </div>
+                                <div className="form-group mb-0">
+                                    <label className="form-label">SubCategories*</label>
+                                    <div className='d-flex'>
+                                        <input type="text" className="form-control" placeholder="SubCategories" name="subSingle" value={this.state.subSingle} onChange={(e) => this.handleChange(e)} />
+                                        <button className='btn' onClick={this.handlesubcategories}>+</button>
+                                    </div>
+
+                                    {this.state.subCategories.map((item, key) => (
+                                        <div className='d-flex justify-content-between mx-4 bg-light align-items-center' key={key}>
+                                            <label className="form-label mb-0 ml-2">{item}</label>
+                                            <button className='btn' onClick={() => this.handleRemovesubcategories(key)}>x</button>
+                                        </div>
+                                    ))}
+
                                 </div>
                                 <div className="form-group">
-                                    <label className="form-label">Slug*</label>
-                                    <input type="text" className="form-control" name="slug"value={this.state.slug} onChange={(e) => this.handleChange(e)} />
+                                    <label className="form-label">Image*</label>
+                                    <input type="text" className="form-control" placeholder="Image link" name="image" value={this.state.image} onChange={(e) => this.handleChange(e)} />
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={()=>this.handleClose()}>Close</button>
-                                <button type="button" className="btn btn-primary" onClick={()=>this.handleSubmit()}>Save changes</button>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={() => this.handleClose()}>Close</button>
+                                <button type="button" className="btn btn-primary" onClick={() => this.handleSubmit()}>Save changes</button>
                             </div>
                         </div>
                     </div>

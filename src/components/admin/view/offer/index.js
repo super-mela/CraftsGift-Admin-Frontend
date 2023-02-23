@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import List from './list';
-import MainCategory from './create';
+import MainOffer from './create';
 
 
 export default class Category extends Component {
@@ -12,7 +12,7 @@ export default class Category extends Component {
                 <main>
                     <Switch>
                         <Route path={[`${match.path}/list`]} component={List} />
-                        <Route path={[`${match.path}/create`]} component={MainCategory} />
+                        <Route path={[`${match.path}/create`]} component={MainOffer} />
                     </Switch>
                 </main>
             </div>

@@ -130,7 +130,7 @@ export default class List extends Component {
                                                         </td>
                                                         <td className="action-btns">
                                                             {/* <SubEdit state={row} /> */}
-                                                            <Typography className="delete-btn" onClick={(e) => this.handlDeleteById(row.id)} ><i className="fas fa-trash-alt" /></Typography>
+                                                            <Typography className="delete-btn" onClick={(e) => this.handlDeleteById(row._id)} ><i className="fas fa-trash-alt" /></Typography>
                                                         </td>
                                                     </tr>
                                                 ))

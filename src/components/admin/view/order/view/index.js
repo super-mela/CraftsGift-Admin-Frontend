@@ -44,8 +44,7 @@ export default class View extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-6 col-sm-6">
-                                                    {/* {
-                                                        self.Addresses.map((data, index) => ( */}
+
                                                     <div className="ordr-date right-text" >
                                                         <b>Order Date :</b><br />
                                                         +{self.phone},<br />
@@ -54,8 +53,7 @@ export default class View extends Component {
                                                         {self.address},<br />
                                                         {self.zip},<br />
                                                     </div>
-                                                    {/* ))
-                                                    } */}
+
                                                 </div>
                                                 <div className="col-lg-12">
                                                     <div className="card card-static-2 mb-30 mt-30">
@@ -123,7 +121,7 @@ export default class View extends Component {
                                                             Total Amount
                                                         </div>
                                                         <div className="order-total-right-text fsz-18">
-                                                            &#8377;{self.amount}
+                                                            ${self.amount}
                                                         </div>
                                                     </div>
                                                 </div>

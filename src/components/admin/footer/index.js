@@ -7,7 +7,7 @@ export default class Footer extends Component {
         <div className="container-fluid">
           <div className="d-flex align-items-center justify-content-between small">
             <div className="text-muted-1">
-              © 2020 <b>Crafts Gift</b>. by{" "}
+              © 2023 <b>Crafts Gift</b>. by{" "}
               <a href="https://themeforest.net/user/gambolthemes">Z-angels</a>
             </div>
             <div className="footer-links">

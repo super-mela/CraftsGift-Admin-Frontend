@@ -183,10 +183,10 @@ export default class List extends Component {
                                                 <th>Category</th>
                                                 <th>SubCategory</th>
                                                 <th>Price</th>
-                                                <th>Net Price</th>
+                                                <th>Net Size</th>
                                                 <th>Discount</th>
-                                                <th>purchase</th>
-                                                <th>Tags</th>
+                                                <th >purchase</th>
+                                                <th style={{ width: 120 }}>Tags</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -209,7 +209,9 @@ export default class List extends Component {
                                                         <td>${row.net}</td>
                                                         <td>{row.discount}%</td>
                                                         <td>{row.purchases}</td>
-                                                        <td>{row.tags}</td>
+                                                        <td>{row.tags.map((item, i) => (
+                                                            <div key={i}>{item}</div>
+                                                        ))}</td>
                                                         <td>
                                                             {row.status === 'in stock' ? <span className="badge-item badge-status-success">{row.status}</span> :
                                                                 <span className="badge-item badge-status">{row.status}</span>

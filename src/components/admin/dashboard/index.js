@@ -373,7 +373,7 @@ export default class Home extends Component {
           <div className="container-fluid">
             <div className="d-flex align-items-center justify-content-between small">
               <div className="text-muted-1">
-                © 2021 <b>Habesh Gebeya</b>. by <a>Z-angel</a>
+                © 2023 <b>Crafts Gift</b>. by <a>Z-angel</a>
               </div>
               <div className="footer-links">
                 <a href="/">Privacy Policy</a>

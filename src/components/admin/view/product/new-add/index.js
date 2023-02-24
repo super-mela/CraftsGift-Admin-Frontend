@@ -21,13 +21,14 @@ export default class Newproduct extends Component {
       toggle: false,
       isLoaded: false,
       name: "",
-      net: 1,
+      net: "",
       price: 1,
       image: "",
       tags: [],
       desc: "",
       discount: 0,
-      singleTag: ""
+      singleTag: "",
+      discountPrice: 0
     };
   }
 
@@ -67,12 +68,12 @@ export default class Newproduct extends Component {
 
   caculationTable = () => {
     let price = this.state.price;
-    let net = this.state.net;
-    if (price > 0 && net > 0) {
-      let discount = Math.round(((price - net) / price) * 100);
-
+    let discounts = this.state.discount;
+    if (price > 0) {
+      let discount = Math.round(price - (price * discounts / 100));
+      console.log(discount)
       this.setState({
-        discount: discount,
+        discountPrice: discount,
       });
     } else {
       NotificationManager.error(
@@ -112,6 +113,7 @@ export default class Newproduct extends Component {
       tags,
       desc,
     } = this.state;
+    console.log(JSON.stringify(this.state.tags))
 
     const formData = new FormData();
     formData.append("category", selectedCategory);
@@ -121,7 +123,7 @@ export default class Newproduct extends Component {
     formData.append("net", net);
     formData.append("price", price);
     formData.append("image", image);
-    formData.append("tags", tags);
+    formData.append("tags", JSON.stringify(tags));
     formData.append("desc", desc);
     const config = {
       data: formData,
@@ -246,9 +248,9 @@ export default class Newproduct extends Component {
                       <div className="form-group">
                         <label className="form-label">net*</label>
                         <input
-                          type="number"
+                          type="text"
                           className="form-control"
-                          placeholder="Net Price"
+                          placeholder="Net Size"
                           name="net"
                           value={this.state.net}
                           onChange={(e) => this.handleChange(e)}
@@ -263,7 +265,6 @@ export default class Newproduct extends Component {
                         <input
                           type="number"
                           className="form-control"
-                          disabled
                           name="discount"
                           value={this.state.discount}
                           onChange={(e) => this.handleChange(e)}
@@ -286,10 +287,7 @@ export default class Newproduct extends Component {
                     <div className="col-lg-4 col-md-4">
                       <div className="form-group">
                         <label className="form-label">Tags*</label>
-
-
                         <div className='d-flex'>
-
                           <input
                             type="textarea"
                             className="form-control"
@@ -307,6 +305,20 @@ export default class Newproduct extends Component {
                             <button className='btn' onClick={() => this.handleRemoveTags(key)}>x</button>
                           </div>
                         ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row" style={{ paddingTop: "2rem", display: this.state.toggle ? "block" : "none" }} >
+                    <div className="col-lg-4 col-md-4">
+                      <div className="form-group">
+                        <label className="form-label">Discount Price*</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name="discountPrice"
+                          disabled
+                          value={this.state.discountPrice}
+                        />
                       </div>
                     </div>
                   </div>

@@ -328,7 +328,7 @@ export default class Home extends Component {
                                   <Link
                                     className="views-btn"
                                     to={{
-                                      pathname: `/admin/order/view/${row.id}`,
+                                      pathname: `/admin/order/view/${row._id}`,
                                       state: row,
                                     }}
                                   >
@@ -337,7 +337,7 @@ export default class Home extends Component {
                                   <Link
                                     className="edit-btn"
                                     to={{
-                                      pathname: `/admin/order/edit/${row.id}`,
+                                      pathname: `/admin/order/edit/${row._id}`,
                                       state: { row },
                                     }}
                                   >

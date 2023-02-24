@@ -10,7 +10,7 @@ export default class Edit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.location.state.row.id, status: this.props.location.state.row.status,deliverydate:''
+            _id: this.props.location.state.row._id, status: this.props.location.state.row.status, deliverydate: ''
         }
     }
     handleBack() {
@@ -20,7 +20,8 @@ export default class Edit extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     handleUpdateStatus = async (event) => {
-        let data = { status: this.state.status, id: this.state.id,deliverydate: new Date(this.state.deliverydate) }
+        let data = { status: this.state.status, _id: this.state._id, deliverydate: new Date(this.state.deliverydate) }
+        console.log(data)
         if (data) {
             let update = await GetOrderDetails.getOrderStatusUpdate(data);
             if (update) {
@@ -38,8 +39,7 @@ export default class Edit extends Component {
         console.log("Edit -> handleUpdateStatus -> data", data)
     }
     render() {
-        let self = this.props.location.state;
-        console.log("Edit -> render -> self", self)
+        let self = this.props.location.state.row;
         return (
             <div>
                 <main>
@@ -58,33 +58,31 @@ export default class Edit extends Component {
                             <li className="breadcrumb-item active">Order Edit</li>
                         </ol>
                         <div className="row">
-                            {self.row ?
+                            {self ?
                                 <div className="col-xl-12 col-md-12">
                                     <div className="card card-static-2 mb-30">
                                         <div className="card-title-2">
                                             <h2 className="title1458">Invoice</h2>
-                                            <span className="order-id">Order #ORDR-{self.row.number}</span>
+                                            <span className="order-id">Order {self.number}</span>
                                         </div>
                                         <div className="invoice-content">
                                             <div className="row">
                                                 <div className="col-lg-6 col-sm-6">
                                                     <div className="ordr-date">
-                                                        <b>Order Date :</b> <Moment format='MMMM Do YYYY'>{self.row.createdAt}</Moment>
+                                                        <b>Order Date :</b> <Moment format='MMMM Do YYYY'>{self.date}</Moment>
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-6 col-sm-6">
-                                                    {
-                                                        self.row.Addresses.map((data, index) => (
-                                                            <div className="ordr-date right-text" key={index}>
-                                                                <b>Order Date :</b><br />
-                                                                #{data.shipping},<br />
-                                                                {data.area},<br />
-                                                                {data.city},<br />
-                                                                {data.discrict},<br />
-                                                                {data.states},<br />
-                                                            </div>
-                                                        ))
-                                                    }
+
+                                                    <div className="ordr-date right-text" >
+                                                        <b>Order Date :</b><br />
+                                                        +{self.phone},<br />
+                                                        {self.country},<br />
+                                                        {self.city},<br />
+                                                        {self.address},<br />
+                                                        {self.zip},<br />
+                                                    </div>
+
                                                 </div>
                                                 <div className="col-lg-12">
                                                     <div className="card card-static-2 mb-30 mt-30">
@@ -97,7 +95,7 @@ export default class Edit extends Component {
                                                                     <thead>
                                                                         <tr>
                                                                             <th style={{ width: 130 }}>#</th>
-                                                                            <th>Image</th>
+                                                                            {/* <th>Image</th> */}
                                                                             <th>Item</th>
                                                                             <th style={{ width: 150 }} className="text-center">Price</th>
                                                                             <th style={{ width: 150 }} className="text-center">Qty</th>
@@ -105,24 +103,23 @@ export default class Edit extends Component {
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        {self.row.Addresses.map((prop) => {
-                                                                            return (
-                                                                                prop.Carts.map((p, index) => (
-                                                                                    <tr key={index}>
-                                                                                        <td>{p.id}</td>
-                                                                                        <td >
+
+                                                                        {self.cart.map((p, index) => (
+                                                                            <tr key={index}>
+                                                                                <td>{p.productId}</td>
+                                                                                {/* <td >
                                                                                             <img src={p.photo} alt="cartimage" style={{ height: '50px' }} />
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            {p.name}
-                                                                                        </td>
-                                                                                        <td className="text-center">&#8377;{p.price}</td>
-                                                                                        <td className="text-center">{p.qty}</td>
-                                                                                        <td className="text-center">&#8377;{p.total}</td>
-                                                                                    </tr>
-                                                                                ))
-                                                                            );
-                                                                        })}
+                                                                                        </td> */}
+                                                                                <td>
+                                                                                    {p.name}
+                                                                                </td>
+                                                                                <td className="text-center">${p.price}</td>
+                                                                                <td className="text-center">{p.quantity}</td>
+                                                                                <td className="text-center">${parseFloat(p.price) * parseFloat(p.quantity)}</td>
+                                                                            </tr>
+                                                                        ))
+                                                                        }
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -133,26 +130,26 @@ export default class Edit extends Component {
                                                 <div className="col-lg-5">
                                                     <div className="order-total-dt">
                                                         <div className="order-total-left-text">
-                                                            Sub Total
-                                                    </div>
+                                                            Discount
+                                                        </div>
                                                         <div className="order-total-right-text">
-                                                            &#8377;{self.row.grandtotal}
+                                                            ${self.discount}
                                                         </div>
                                                     </div>
                                                     <div className="order-total-dt">
                                                         <div className="order-total-left-text">
                                                             Delivery Fees
-                                                    </div>
+                                                        </div>
                                                         <div className="order-total-right-text">
-                                                            &#8377;Free
-                                                    </div>
+                                                            ${self.shippingCost}
+                                                        </div>
                                                     </div>
                                                     <div className="order-total-dt">
                                                         <div className="order-total-left-text fsz-18">
                                                             Total Amount
-                                                    </div>
+                                                        </div>
                                                         <div className="order-total-right-text fsz-18">
-                                                            &#8377;{self.row.grandtotal}
+                                                            ${self.amount}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,14 +158,14 @@ export default class Edit extends Component {
                                                     <div className="select-status">
                                                         <label htmlFor="status">Delivery Date*</label>
                                                         <div className="input-group">
-                                                            <input className="custom-select" type="date" name="deliverydate" value={this.state.deliverydate} onChange={(e) => this.handleChange(e)}/>
+                                                            <input className="custom-select" type="date" name="deliverydate" value={this.state.deliverydate} onChange={(e) => this.handleChange(e)} />
                                                         </div>
                                                     </div>
                                                     <div className="select-status">
                                                         <label htmlFor="status">Status*</label>
                                                         <div className="input-group">
                                                             <select id="status" name="status" className="custom-select" value={this.state.status} onChange={(e) => this.handleChange(e)}>
-                                                                <option value="processing">Processing</option>
+                                                                <option value="pendding">Pendding</option>
                                                                 <option value="shipping">Shipping</option>
                                                                 <option value="delieverd">Delivered</option>
                                                                 <option value="cancel">Cancel</option>

@@ -198,8 +198,8 @@ export default class List extends Component {
                                                         <td>{index + 1}</td>
                                                         <td>
                                                             <div className="cate-img-5">
-                                                                <img src={row.image} alt={row.name} />
-                                                                {/* <img src={API_URL + "/product/" + row.photo} alt={row.name} /> */}
+                                                                {/* <img src={row.image} alt={row.name} /> */}
+                                                                <img src={API_URL + "/product/" + row.image} alt={row.name} />
                                                             </div>
                                                         </td>
                                                         <td>{row.name}</td>

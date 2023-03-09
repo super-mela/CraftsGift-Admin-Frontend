@@ -28,7 +28,8 @@ export default class Newproduct extends Component {
       desc: "",
       discount: 0,
       singleTag: "",
-      discountPrice: 0
+      discountPrice: 0,
+      filename: ""
     };
   }
 
@@ -40,7 +41,12 @@ export default class Newproduct extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   onFileChange = (event) => {
+    this.setState({ filename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] });
     this.setState({ image: event.target.files[0] });
   };
 
@@ -112,6 +118,7 @@ export default class Newproduct extends Component {
       price,
       tags,
       desc,
+      filename,
     } = this.state;
     console.log(JSON.stringify(this.state.tags))
 
@@ -122,7 +129,7 @@ export default class Newproduct extends Component {
     formData.append("discount", discount);
     formData.append("net", net);
     formData.append("price", price);
-    formData.append("image", image);
+    formData.append("image", image, filename);
     formData.append("tags", JSON.stringify(tags));
     formData.append("desc", desc);
     const config = {
@@ -131,7 +138,6 @@ export default class Newproduct extends Component {
         "content-type": "multipart/form-data",
       },
     };
-    console.log(this.state)
     swal({
       title: "Are you sure?",
       text: "You want to Add New Product",
@@ -273,14 +279,12 @@ export default class Newproduct extends Component {
                     </div>
                     <div className="col-lg-4 col-md-4">
                       <div className="form-group">
-                        <label className="form-label">image Link*</label>
+                        <label className="form-label">image*</label>
                         <input
-                          type="text"
+                          type="file"
                           className="form-control"
-                          placeholder="Image link"
                           name="image"
-                          value={this.state.image}
-                          onChange={(e) => this.handleChange(e)}
+                          onChange={this.onFileChange}
                         />
                       </div>
                     </div>

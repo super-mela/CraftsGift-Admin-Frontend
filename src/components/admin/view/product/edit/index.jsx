@@ -14,7 +14,8 @@ export default class Edit extends Component {
         let value = self.status === "active" ? 1 : 0;
         this.state = {
             getList: [], getsublist: [], selectedCategory: self.category, selectedSubCategory: self.subCategory, toggle: false, loading: false, blockHide: false,
-            productId: self._id, name: self.name, net: self.net, price: self.price, image: self.image, desc: self.desc, tags: self.tags, discount: self.discount
+            productId: self._id, name: self.name, net: self.net, price: self.price, image: self.image, desc: self.desc, tags: self.tags, discount: self.discount,
+            filename: "", oldfilename: self.image,
         }
     }
     handleBack() {
@@ -24,6 +25,7 @@ export default class Edit extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     onFileChange = event => {
+        this.setState({ filename: this.state.oldfilename.split('/')[2].split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
         this.setState({ image: event.target.files[0] });
     };
     handleContentChange = contentHtml => {
@@ -31,7 +33,6 @@ export default class Edit extends Component {
             content: contentHtml
         });
     };
-
     caculationTable = () => {
         let price = this.state.price;
         let net = this.state.net;
@@ -66,6 +67,7 @@ export default class Edit extends Component {
             price,
             tags,
             desc,
+            filename,
         } = this.state;
         const formData = new FormData();
         formData.append("productId", productId);
@@ -75,8 +77,8 @@ export default class Edit extends Component {
         formData.append("discount", discount);
         formData.append("net", net);
         formData.append("price", price);
-        formData.append("image", image);
-        formData.append("tags", tags);
+        formData.append("image", image, filename);
+        formData.append("tags", JSON.stringify(tags));
         formData.append("desc", desc);
         formData.append("status", this.props.location.state.row.status);
         const config = {
@@ -202,15 +204,13 @@ export default class Edit extends Component {
                                         </div>
                                         <div className="col-lg-4 col-md-4">
                                             <div className="form-group">
-                                                <label className="form-label">image Link*</label>
+                                                <label className="form-label">image*</label>
                                                 <input
-                                                    type="text"
+                                                    type="file"
                                                     className="form-control"
-                                                    placeholder="Image link"
                                                     name="image"
-                                                    value={this.state.image}
-                                                    onChange={(e) => this.handleChange(e)}
-                                                />
+                                                    onChange={this.onFileChange} />
+
                                             </div>
                                         </div>
                                     </div>

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Modal } from '@material-ui/core';
 import { GetCategoryDetails } from '../../../../../services';
+import swal from 'sweetalert';
+import { API_URL } from '../../../../../../config';
 
 export default class Edit extends Component {
     constructor(props) {
         super(props);
         const { _id, categoryName, subCategories, image } = this.props.state;
         this.state = {
-            _id: _id, categoryName: categoryName, subCategories: subCategories, image: image, subSingle: ''
+            _id: _id, categoryName: categoryName, subCategories: subCategories, image: image, subSingle: '', filename: "", oldfilename: image, preview: ""
         }
     }
 
@@ -18,6 +20,13 @@ export default class Edit extends Component {
     handleOpen() {
         this.setState({ open: !this.state.open, loading: true })
     }
+
+    onFileChange = event => {
+        this.setState({ filename: this.state.oldfilename.split('/')[1].split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
+        this.setState({ image: event.target.files[0] });
+        const objectUrl = URL.createObjectURL(event.target.files[0])
+        this.setState({ preview: objectUrl })
+    };
 
     handleClose() {
         this.setState({ open: !this.state.open })
@@ -34,15 +43,29 @@ export default class Edit extends Component {
     }
 
     async handleSubmit(e) {
-        const { _id, categoryName, subCategories, image } = this.state
-        let data = { _id: _id, categoryName: categoryName, subCategories: subCategories, image: image }
-        console.log(data)
-        let list = await GetCategoryDetails.getUpdateCategoryList(data);
-        if (list) {
-            this.props.getCategory()
-            this.handleClose()
-            // window.location.reload();
-        }
+        const { _id, categoryName, subCategories, image, filename } = this.state
+        const formData = new FormData();
+        formData.append("_id", _id);
+        formData.append("categoryName", categoryName);
+        formData.append("subCategories", JSON.stringify(subCategories));
+        formData.append("image", image, filename);
+        swal({
+            title: "Are you sure?",
+            text: `You want to Update ${categoryName}`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then(async (success) => {
+                if (success) {
+                    let list = await GetCategoryDetails.getUpdateCategoryList(formData);
+                    if (list) {
+                        this.props.getCategory()
+                        this.handleClose()
+                        window.location.reload();
+                    }
+                }
+            });
     }
 
     render() {
@@ -80,11 +103,36 @@ export default class Edit extends Component {
                                             <button className='btn' onClick={() => this.handleRemovesubcategories(key)}>x</button>
                                         </div>
                                     ))}
-
                                 </div>
-                                <div className="form-group">
-                                    <label className="form-label">Image*</label>
-                                    <input type="text" className="form-control" placeholder="Image link" name="image" value={this.state.image} onChange={(e) => this.handleChange(e)} />
+                                <div className='row'>
+                                    <div className='col'>
+                                        <div className="form-group">
+                                            <label className="form-label">old Image*</label>
+                                            <div className="cate-img-5">
+                                                <img src={API_URL + "/category/" + this.props.state.image} alt="old image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col'>
+                                        <div className="form-group">
+                                            <label className="form-label">New Image*</label>
+                                            <div className="cate-img-5">
+                                                <img src={this.state.preview} alt="new image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col'>
+                                        <div className="form-group">
+                                            <label className="form-label">Choose Image*</label>
+                                            <input
+                                                accept="image/*"
+                                                type="file"
+                                                className="form-control"
+                                                name="image"
+                                                onChange={this.onFileChange}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="modal-footer">

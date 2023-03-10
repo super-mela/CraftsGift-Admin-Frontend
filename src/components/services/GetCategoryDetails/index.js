@@ -1,10 +1,11 @@
 import api from '../../ApiConfig';
 import { Apis } from '../../../config';
+import apifile from '../../ApiFileConfig';
 import { NotificationManager } from 'react-notifications';
 
 const createCategoryList = async (data) => {
     try {
-        let result = await api.post(Apis.CreateCategoryList,data);
+        let result = await apifile.post(Apis.CreateCategoryList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -31,7 +32,7 @@ const getCategoryList = async () => {
 
 const getUpdateCategoryList = async (data) => {
     try {
-        let result = await api.post(Apis.GetUpdateCategoryList,data);
+        let result = await apifile.post(Apis.GetUpdateCategoryList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -46,7 +47,7 @@ const getUpdateCategoryList = async (data) => {
 // sub categorylist
 const createSubCategoryList = async (data) => {
     try {
-        let result = await api.post(Apis.CreateSubCategoryList,data);
+        let result = await api.post(Apis.CreateSubCategoryList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -74,7 +75,7 @@ const getSubCategoryList = async () => {
 
 const getUpdateSubList = async (data) => {
     try {
-        let result = await api.post(Apis.GetUpdateSubCategoryList,data);
+        let result = await api.post(Apis.GetUpdateSubCategoryList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -87,7 +88,7 @@ const getUpdateSubList = async (data) => {
 };
 const getSubDeleteById = async (id) => {
     try {
-        let result = await api.delete(Apis.GetSubDeleteById,{params: {id}});
+        let result = await api.delete(Apis.GetSubDeleteById, { params: { id } });
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -102,7 +103,7 @@ const getSubDeleteById = async (id) => {
 // child category list
 const getSelectSubCategory = async (id) => {
     try {
-        let result = await api.get(Apis.GetAllSubCategory+ `${id}`);
+        let result = await api.get(Apis.GetAllSubCategory + `${id}`);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -115,7 +116,7 @@ const getSelectSubCategory = async (id) => {
 };
 const createChildCategory = async (data) => {
     try {
-        let result = await api.post(Apis.CreateChildCategory,data);
+        let result = await api.post(Apis.CreateChildCategory, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -142,7 +143,7 @@ const getChildCategoryList = async () => {
 };
 const getChildDeleteById = async (id) => {
     try {
-        let result = await api.delete(Apis.GetChildDeleteById,{params: {id}});
+        let result = await api.delete(Apis.GetChildDeleteById, { params: { id } });
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -155,7 +156,7 @@ const getChildDeleteById = async (id) => {
 };
 const getAllSubChildCategory = async (id) => {
     try {
-        let result = await api.get(Apis.GetAllSubChildCategory+ `${id}`);
+        let result = await api.get(Apis.GetAllSubChildCategory + `${id}`);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;

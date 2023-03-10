@@ -4,13 +4,13 @@ import {
 } from "@material-ui/core";
 import { GetCategoryDetails } from '../../../../services';
 import swal from 'sweetalert';
+import { API_URL } from '../../../../../config';
 
 export default class List extends Component {
     constructor(props) {
         super(props);
         this.state = { getdata: [] }
     }
-
     handleBack() {
         this.props.history.goBack();
     }
@@ -112,7 +112,8 @@ export default class List extends Component {
                                         <thead>
                                             <tr>
                                                 <th style={{ width: 60 }}><input type="checkbox" className="check-all" /></th>
-                                                <th scope="col">Category    </th>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Category</th>
                                                 <th scope="col">Sub Category</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Action</th>
@@ -123,6 +124,12 @@ export default class List extends Component {
                                                 getdata.map((row, index) => (
                                                     <tr key={index}>
                                                         <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
+                                                        <td>
+                                                            <div className="cate-img-5">
+                                                                {/* <img src={row.image} alt={row.categoryName} /> */}
+                                                                <img src={API_URL + "/category/" + row.image} alt={row.name} />
+                                                            </div>
+                                                        </td>
                                                         <td>{row.categoryName}</td>
                                                         <td>{row.subCategories.map((item) => (<div>{item} <br /></div>))}</td>
                                                         <td>

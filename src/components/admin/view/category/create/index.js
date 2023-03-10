@@ -5,11 +5,12 @@ import {
 import { GetCategoryDetails } from '../../../../services';
 import Edit from './edit'
 import swal from 'sweetalert';
+import { API_URL } from '../../../../../config';
 export default class MainCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categoryName: '', subCategory: [], image: "", getList: [], subSingle: ''
+            categoryName: '', subCategory: [], image: "", getList: [], subSingle: '', filename: "",
         }
     }
     handleChange(e) {
@@ -41,7 +42,10 @@ export default class MainCategory extends Component {
         this.setState({ subCategory: [...this.state.subCategory, this.state.subSingle] })
         this.setState({ subSingle: "" })
     }
-
+    onFileChange = (event) => {
+        this.setState({ filename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] });
+        this.setState({ image: event.target.files[0] });
+    };
     handleRemovesubcategory = async (index) => {
         this.state.subCategory.splice(index, 1)
         this.setState({ subSingle: "" })
@@ -49,18 +53,21 @@ export default class MainCategory extends Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        const { categoryName, subCategory, image } = this.state;
-        let data = { categoryName: categoryName, subCategories: subCategory, image: image };
+        const { categoryName, subCategory, image, filename } = this.state;
+        const formData = new FormData();
+        formData.append("categoryName", categoryName);
+        formData.append("subCategories", JSON.stringify(subCategory));
+        formData.append("image", image, filename);
         swal({
             title: "Are you sure?",
-            text: "You want to Add New Location",
+            text: "You want to Add New Category",
             icon: "warning",
             buttons: true,
             dangerMode: true,
         })
             .then(async (success) => {
                 if (success) {
-                    let list = await GetCategoryDetails.createCategoryList(data);
+                    let list = await GetCategoryDetails.createCategoryList(formData);
                     if (list) {
                         this.setState({ categoryName: "", subCategory: [], image: "" })
                         this.getCategory();
@@ -109,11 +116,16 @@ export default class MainCategory extends Component {
                                                 <button className='btn' onClick={() => this.handleRemovesubcategory(key)}>x</button>
                                             </div>
                                         ))}
-
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Image*</label>
-                                        <input type="text" className="form-control" placeholder="Image link" name="image" value={this.state.image} onChange={(e) => this.handleChange(e)} />
+                                        <input
+                                            accept="image/*"
+                                            type="file"
+                                            className="form-control"
+                                            name="image"
+                                            onChange={this.onFileChange}
+                                        />
                                     </div>
                                     <button className="save-btn hover-btn" type="submit" onClick={this.handleSubmit}>Add New</button>
                                 </div>
@@ -134,6 +146,7 @@ export default class MainCategory extends Component {
                                                     <thead>
                                                         <tr>
                                                             <th style={{ width: 60 }}><input type="checkbox" className="check-all" /></th>
+                                                            <th scope="col">Image</th>
                                                             <th scope="col">Category Name</th>
                                                             <th scope="col">SubCategory</th>
                                                             <th scope="col">Date</th>
@@ -145,6 +158,12 @@ export default class MainCategory extends Component {
                                                             self.map((row, index) => (
                                                                 <tr key={index}>
                                                                     <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
+                                                                    <td>
+                                                                        <div className="cate-img-5">
+                                                                            {/* <img src={row.image} alt={row.categoryName} /> */}
+                                                                            <img src={API_URL + "/category/" + row.image} alt={row.name} />
+                                                                        </div>
+                                                                    </td>
                                                                     <td>{row.categoryName}</td>
                                                                     <td>{row.subCategories.map((item => (<div>{item}<br /></div>)))}</td>
                                                                     <td>

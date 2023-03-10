@@ -285,6 +285,7 @@ export default class Newproduct extends Component {
                           className="form-control"
                           name="image"
                           onChange={this.onFileChange}
+                          accept="image/*"
                         />
                       </div>
                     </div>

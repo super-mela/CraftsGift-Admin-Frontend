@@ -5,16 +5,23 @@ import {
 import { GetOfferDetails } from '../../../../services';
 import Edit from './edit'
 import swal from 'sweetalert';
+import { API_URL } from '../../../../../config';
+
 export default class MainOffer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '', coupon: "", discount: "", image: "", leastAmount: "", expiresIn: "", getList: [],
+            name: '', coupon: "", discount: "", image: "", leastAmount: "", expiresIn: "", getList: [], filename: ""
         }
     }
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    onFileChange = (event) => {
+        this.setState({ filename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] });
+        this.setState({ image: event.target.files[0] });
+    };
     handleBack() {
         this.props.history.goBack();
     }
@@ -25,6 +32,8 @@ export default class MainOffer extends Component {
     async componentDidMount() {
         this.getOffer();
     }
+
+
     formatDate(date) {
         var d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -42,9 +51,15 @@ export default class MainOffer extends Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        const { name, coupon, discount, leastAmount, expiresIn, image } = this.state;
-        let data = { name: name, coupon: coupon, discount: discount, leastAmount: leastAmount, expiresIn: expiresIn, image: image };
-        console.log(data)
+        const { name, coupon, discount, leastAmount, expiresIn, image, filename } = this.state;
+        // let data = { name: name, coupon: coupon, discount: discount, leastAmount: leastAmount, expiresIn: expiresIn, image: image };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("coupon", coupon);
+        formData.append("discount", discount);
+        formData.append("leastAmount", leastAmount);
+        formData.append("expiresIn", expiresIn);
+        formData.append("image", image, filename);
         swal({
             title: "Are you sure?",
             text: "You want to Add New Offer",
@@ -54,7 +69,7 @@ export default class MainOffer extends Component {
         })
             .then(async (success) => {
                 if (success) {
-                    let list = await GetOfferDetails.createOfferList(data);
+                    let list = await GetOfferDetails.createOfferList(formData);
                     if (list) {
                         this.setState({ name: "", coupon: "", discount: "", leastAmount: "", expiresIn: "", image: "" })
                         this.getOffer();
@@ -71,18 +86,18 @@ export default class MainOffer extends Component {
                         <h2 className="mt-30 page-title">Categories</h2>
                     </div>
                     <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                        <Button variant="contained" onClick={(e) => this.handleBack()}><i class="fas fa-arrow-left" /> Back</Button>
+                        <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
                     </div>
                 </div>
                 <ol className="breadcrumb mb-30">
                     <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li className="breadcrumb-item active">Category</li>
+                    <li className="breadcrumb-item active">offer</li>
                 </ol>
                 <div className="row">
                     <div className="col-lg-4 col-md-5">
                         <div className="card card-static-2 mb-30">
                             <div className="card-title-2">
-                                <h4>Add Main Category</h4>
+                                <h4>Add Offer</h4>
                             </div>
                             <div className="card-body-table">
                                 <div className="news-content-right pd-20">
@@ -99,12 +114,12 @@ export default class MainOffer extends Component {
                                     <div className="form-group mb-0">
                                         <label className="form-label">Discount*</label>
                                         <div className='d-flex'>
-                                            <input type="text" className="form-control" placeholder="discount" name="discount" value={this.state.discount} onChange={(e) => this.handleChange(e)} />
+                                            <input type="number" className="form-control" placeholder="discount" name="discount" value={this.state.discount} onChange={(e) => this.handleChange(e)} />
                                         </div>
                                     </div>     <div className="form-group mb-0">
                                         <label className="form-label">Least Amount*</label>
                                         <div className='d-flex'>
-                                            <input type="text" className="form-control" placeholder="Least Amount" name="leastAmount" value={this.state.leastAmount} onChange={(e) => this.handleChange(e)} />
+                                            <input type="number" className="form-control" placeholder="Least Amount" name="leastAmount" value={this.state.leastAmount} onChange={(e) => this.handleChange(e)} />
                                         </div>
                                     </div>     <div className="form-group mb-0">
                                         <label className="form-label">Expired Date*</label>
@@ -114,7 +129,7 @@ export default class MainOffer extends Component {
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Image*</label>
-                                        <input type="text" className="form-control" placeholder="Image link" name="image" value={this.state.image} onChange={(e) => this.handleChange(e)} />
+                                        <input type="file" className="form-control" name="image" onChange={this.onFileChange} accept="image/*" />
                                     </div>
                                     <button className="save-btn hover-btn" type="submit" onClick={this.handleSubmit}>Add New</button>
                                 </div>
@@ -127,7 +142,7 @@ export default class MainOffer extends Component {
                                 <div className="col-lg-12 col-md-12">
                                     <div className="card card-static-2 mb-30">
                                         <div className="card-title-2">
-                                            <h4>All Main Categories</h4>
+                                            <h4>All Offers</h4>
                                         </div>
                                         <div className="card-body-table">
                                             <div className="table-responsive">
@@ -135,6 +150,7 @@ export default class MainOffer extends Component {
                                                     <thead>
                                                         <tr>
                                                             <th style={{ width: 60 }}><input type="checkbox" className="check-all" /></th>
+                                                            <th scope="col">Image</th>
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Coupon</th>
                                                             <th scope="col">Discount</th>
@@ -148,6 +164,10 @@ export default class MainOffer extends Component {
                                                             self.map((row, index) => (
                                                                 <tr key={index}>
                                                                     <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
+                                                                    <td>
+                                                                        <div className="cate-img-5">
+                                                                            <img src={API_URL + "/offer/" + row.image} alt={row.name} />
+                                                                        </div></td>
                                                                     <td>{row.name}</td>
                                                                     <td>{row.coupon}</td>
                                                                     <td>{row.discount}</td>

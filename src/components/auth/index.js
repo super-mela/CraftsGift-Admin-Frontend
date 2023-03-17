@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom'
+import { Switch, Route, HashRouter } from 'react-router-dom'
 import Login from './login';
 import Register from './register';
 export default class Main extends Component {

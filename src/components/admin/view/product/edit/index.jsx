@@ -3,19 +3,18 @@ import {
     Button
 } from "@material-ui/core";
 import { GetProductDetails } from '../../../../services';
-import RichTextEditor from '../../../../RichTextEditor';
 import Loader from '../../../../loader';
 import { NotificationManager } from 'react-notifications';
 import swal from 'sweetalert';
+import { API_URL } from '../../../../../config';
 export default class Edit extends Component {
     constructor(props) {
         super(props);
         let self = this.props.location.state.row;
-        let value = self.status === "active" ? 1 : 0;
         this.state = {
             getList: [], getsublist: [], selectedCategory: self.category, selectedSubCategory: self.subCategory, toggle: false, loading: false, blockHide: false,
             productId: self._id, name: self.name, net: self.net, price: self.price, image: self.image, desc: self.desc, tags: self.tags, discount: self.discount,
-            filename: "", oldfilename: self.image,
+            filename: "", oldfilename: self.image, singleTag: "", preview: null,
         }
     }
     handleBack() {
@@ -27,6 +26,8 @@ export default class Edit extends Component {
     onFileChange = event => {
         this.setState({ filename: this.state.oldfilename.split('/')[2].split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
         this.setState({ image: event.target.files[0] });
+        const objectUrl = URL.createObjectURL(event.target.files[0])
+        this.setState({ preview: objectUrl })
     };
     handleContentChange = contentHtml => {
         this.setState({
@@ -35,12 +36,12 @@ export default class Edit extends Component {
     };
     caculationTable = () => {
         let price = this.state.price;
-        let net = this.state.net;
-        if (price > 0 && net > 0) {
-            let discount = Math.round(((price - net) / price) * 100);
-
+        let discounts = this.state.discount;
+        if (price > 0) {
+            let discount = Math.round(price - (price * discounts / 100));
+            console.log(discount)
             this.setState({
-                discount: discount,
+                discountPrice: discount,
             });
         } else {
             NotificationManager.error(
@@ -52,6 +53,16 @@ export default class Edit extends Component {
     handleCheckPrice() {
         this.caculationTable();
         this.setState({ toggle: !this.state.toggle })
+    }
+    handleAddTag = async (e) => {
+        this.setState({ tags: [...this.state.tags, this.state.singleTag] })
+        this.setState({ singleTag: "" })
+    }
+
+    handleRemoveTags = async (index) => {
+        this.state.tags.splice(index, 1)
+        this.setState({ singleTag: "" })
+
     }
     handleSubmit = event => {
         event.preventDefault();
@@ -165,7 +176,7 @@ export default class Edit extends Component {
                                             <div className="form-group">
                                                 <label className="form-label">net*</label>
                                                 <input
-                                                    type="number"
+                                                    type="text"
                                                     className="form-control"
                                                     placeholder="Net Price"
                                                     name="net"
@@ -182,35 +193,75 @@ export default class Edit extends Component {
                                                 <input
                                                     type="number"
                                                     className="form-control"
-                                                    disabled
                                                     name="discount"
                                                     value={this.state.discount}
                                                     onChange={(e) => this.handleChange(e)}
                                                 />
                                             </div>
                                         </div>
-                                        <div className="col-lg-4 col-md-4">
+                                        <div className='col'>
+                                            <div className='row'>
+
+                                                <div className="form-group m-2">
+                                                    <label className="form-label">old Image*</label>
+                                                    <div className="cate-img-5">
+                                                        <img src={API_URL + "/product/" + this.state.oldfilename} alt="old" />
+                                                    </div>
+                                                </div>
+
+                                                <div className="form-group  m-2">
+                                                    <label className="form-label">New Image*</label>
+                                                    <div className="cate-img-5">
+                                                        <img src={this.state.preview} alt="new" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div className="form-group">
-                                                <label className="form-label">Tags*</label>
+                                                <label className="form-label">Choose Image*</label>
                                                 <input
-                                                    type="textarea"
+                                                    accept="image/*"
+                                                    type="file"
                                                     className="form-control"
-                                                    placeholder="Tags"
-                                                    name="tags"
-                                                    value={this.state.tags}
-                                                    onChange={(e) => this.handleChange(e)}
+                                                    name="image"
+                                                    onChange={this.onFileChange}
                                                 />
                                             </div>
                                         </div>
                                         <div className="col-lg-4 col-md-4">
                                             <div className="form-group">
-                                                <label className="form-label">image*</label>
-                                                <input
-                                                    type="file"
-                                                    className="form-control"
-                                                    name="image"
-                                                    onChange={this.onFileChange} />
+                                                <label className="form-label">Tags*</label>
+                                                <div className='d-flex'>
+                                                    <input
+                                                        type="textarea"
+                                                        className="form-control"
+                                                        placeholder="Tags"
+                                                        name="singleTag"
+                                                        value={this.state.singleTag}
+                                                        onChange={(e) => this.handleChange(e)}
+                                                    />
+                                                    <button className='btn' onClick={this.handleAddTag}>+</button>
+                                                </div>
 
+                                                {this.state.tags.map((item, key) => (
+                                                    <div className='d-flex justify-content-between mx-4 bg-light align-items-center' key={key}>
+                                                        <label className="form-label mb-0 ml-2">{item}</label>
+                                                        <button className='btn' onClick={() => this.handleRemoveTags(key)}>x</button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row" style={{ paddingTop: "2rem", display: this.state.toggle ? "block" : "none" }} >
+                                        <div className="col-lg-4 col-md-4">
+                                            <div className="form-group">
+                                                <label className="form-label">Discount Price*</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    name="discountPrice"
+                                                    disabled
+                                                    value={this.state.discountPrice}
+                                                />
                                             </div>
                                         </div>
                                     </div>

@@ -1,11 +1,12 @@
 import api from '../../ApiConfig';
 import { Apis } from '../../../config';
+import apifile from '../../ApiFileConfig'
 import { NotificationManager } from 'react-notifications';
 
 
 const createOfferList = async (data) => {
     try {
-        let result = await api.post(Apis.CreateOfferList, data);
+        let result = await apifile.post(Apis.CreateOfferList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -32,7 +33,7 @@ const getOfferList = async () => {
 };
 const getUpdateOfferList = async (data) => {
     try {
-        let result = await api.post(Apis.GetUpdateOfferList, data);
+        let result = await apifile.post(Apis.GetUpdateOfferList, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -43,8 +44,6 @@ const getUpdateOfferList = async (data) => {
         return null;
     }
 };
-
-
 
 const getOfferDeleteById = async (id) => {
     try {

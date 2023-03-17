@@ -4,6 +4,7 @@ import {
 } from "@material-ui/core";
 import { GetOfferDetails } from '../../../../services';
 import swal from 'sweetalert';
+import { API_URL } from '../../../../../config';
 
 export default class List extends Component {
     constructor(props) {
@@ -100,7 +101,7 @@ export default class List extends Component {
                                     <option value={1}>Inactive</option>
                                 </select>
                                 <div className="input-group-append">
-                                    <button className="status-btn hover-btn" type="submit">Search Category</button>
+                                    <button className="status-btn hover-btn" type="submit">Search Offers</button>
                                 </div>
                             </div>
                         </div>
@@ -132,8 +133,7 @@ export default class List extends Component {
                                                         <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
                                                         <td>
                                                             <div className="cate-img-5">
-                                                                <img src={row.image} alt={row.name} />
-                                                                {/* <img src={API_URL + "/product/" + row.photo} alt={row.name} /> */}
+                                                                <img src={API_URL + "/offer/" + row.image} alt={row.name} />
                                                             </div>
                                                         </td>
                                                         <td>{row.name}</td>

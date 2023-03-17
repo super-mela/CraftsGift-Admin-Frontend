@@ -43,12 +43,12 @@ export default class Edit extends Component {
     }
 
     async handleSubmit(e) {
-        const { _id, categoryName, subCategories, image, filename } = this.state
+        const { _id, categoryName, subCategories, image, filename, preview } = this.state
         const formData = new FormData();
         formData.append("_id", _id);
         formData.append("categoryName", categoryName);
         formData.append("subCategories", JSON.stringify(subCategories));
-        formData.append("image", image, filename);
+        preview && formData.append("image", image, filename);
         swal({
             title: "Are you sure?",
             text: `You want to Update ${categoryName}`,
@@ -109,7 +109,7 @@ export default class Edit extends Component {
                                         <div className="form-group">
                                             <label className="form-label">old Image*</label>
                                             <div className="cate-img-5">
-                                                <img src={API_URL + "/category/" + this.props.state.image} alt="old image" />
+                                                <img src={API_URL + "/category/" + this.props.state.image} alt="old" />
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@ export default class Edit extends Component {
                                         <div className="form-group">
                                             <label className="form-label">New Image*</label>
                                             <div className="cate-img-5">
-                                                <img src={this.state.preview} alt="new image" />
+                                                <img src={this.state.preview} alt="new" />
                                             </div>
                                         </div>
                                     </div>

@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import { Modal } from '@material-ui/core';
 import { GetOfferDetails } from '../../../../../services';
-
+import { API_URL } from '../../../../../../config';
 export default class Edit extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props)
         const { name, coupon, discount, leastAmount, expiresIn, image } = this.props.state;
         this.state = {
-            name: name, coupon: coupon, discount: discount, leastAmount: leastAmount, expiresIn: expiresIn, image: image
+            name: name, coupon: coupon, discount: discount, leastAmount: leastAmount, expiresIn: expiresIn, image: image, filename: image, oldfilename: image, preview: null
         }
     }
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    onFileChange = event => {
+        this.setState({ filename: this.state.oldfilename.split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
+        this.setState({ image: event.target.files[0] });
+        const objectUrl = URL.createObjectURL(event.target.files[0])
+        this.setState({ preview: objectUrl })
+    };
     handleOpen() {
         this.setState({ open: !this.state.open, loading: true })
     }
@@ -21,8 +29,17 @@ export default class Edit extends Component {
         this.setState({ open: !this.state.open })
     }
     async handleSubmit(e) {
-        let data = { _id: this.props.state._id, name: this.state.name, coupon: this.state.coupon, discount: this.state.discount, leastAmount: this.state.leastAmount, expiresIn: this.state.expiresIn, image: this.state.image }
-        let list = await GetOfferDetails.getUpdateOfferList(data);
+        const { name, coupon, discount, leastAmount, expiresIn, image, filename, preview } = this.state;
+        const formData = new FormData();
+        formData.append("_id", this.props.state._id);
+        formData.append("name", name);
+        formData.append("coupon", coupon);
+        formData.append("discount", discount);
+        formData.append("leastAmount", leastAmount);
+        formData.append("expiresIn", expiresIn);
+        preview && formData.append("image", image, filename);
+        // let data = { _id: this.props.state._id, name: this.state.name, coupon: this.state.coupon, discount: this.state.discount, leastAmount: this.state.leastAmount, expiresIn: this.state.expiresIn, image: this.state.image }
+        let list = await GetOfferDetails.getUpdateOfferList(formData);
         if (list) {
             this.props.getOffer()
             this.handleClose()
@@ -60,12 +77,12 @@ export default class Edit extends Component {
                                 <div className="form-group mb-0">
                                     <label className="form-label">Discount*</label>
                                     <div className='d-flex'>
-                                        <input type="text" className="form-control" placeholder="discount" name="discount" value={this.state.discount} onChange={(e) => this.handleChange(e)} />
+                                        <input type="number" className="form-control" placeholder="discount" name="discount" value={this.state.discount} onChange={(e) => this.handleChange(e)} />
                                     </div>
                                 </div>     <div className="form-group mb-0">
                                     <label className="form-label">Least Amount*</label>
                                     <div className='d-flex'>
-                                        <input type="text" className="form-control" placeholder="Least Amount" name="leastAmount" value={this.state.leastAmount} onChange={(e) => this.handleChange(e)} />
+                                        <input type="number" className="form-control" placeholder="Least Amount" name="leastAmount" value={this.state.leastAmount} onChange={(e) => this.handleChange(e)} />
                                     </div>
                                 </div>     <div className="form-group mb-0">
                                     <label className="form-label">Expired Date*</label>
@@ -73,9 +90,35 @@ export default class Edit extends Component {
                                         <input type="datetime-local" className="form-control" placeholder="Expires In" name="expiresIn" value={this.state.expiresIn} onChange={(e) => this.handleChange(e)} />
                                     </div>
                                 </div>
-                                <div className="form-group">
-                                    <label className="form-label">Image*</label>
-                                    <input type="text" className="form-control" placeholder="Image link" name="image" value={this.state.image} onChange={(e) => this.handleChange(e)} />
+                                <div className='row'>
+                                    <div className='col'>
+                                        <div className="form-group">
+                                            <label className="form-label">old Image*</label>
+                                            <div className="cate-img-5">
+                                                <img src={API_URL + "/offer/" + this.props.state.image} alt="old" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col'>
+                                        <div className="form-group">
+                                            <label className="form-label">New Image*</label>
+                                            <div className="cate-img-5">
+                                                <img src={this.state.preview} alt="new" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='col'>
+                                        <div className="form-group">
+                                            <label className="form-label">Choose Image*</label>
+                                            <input
+                                                accept="image/*"
+                                                type="file"
+                                                className="form-control"
+                                                name="image"
+                                                onChange={this.onFileChange}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="modal-footer">

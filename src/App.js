@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import rootRoutes from './components/admin/rootRoutes';
 import Auth from './components/auth';
 import NoMatch from './components/nomatch';
-import { Switch, Route, BrowserRouter, Redirect, HashRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 // import PrivateRoute from './components/auth/PrivateRoute';
 import { getCookie } from './function';
 

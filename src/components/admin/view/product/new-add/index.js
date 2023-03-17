@@ -3,9 +3,7 @@ import { Button } from "@material-ui/core";
 import MainCategorylist from "../../../../common/category/main-category";
 import { GetCategoryDetails } from "../../../../services";
 import SubCategorylist from "../../../../common/category/sub-category";
-import ChildCategorylist from "../../../../common/category/child-category";
 import { GetProductDetails } from "../../../../services";
-import RichTextEditor from "../../../../RichTextEditor";
 import Loader from "../../../../loader";
 import { NotificationManager } from "react-notifications";
 import swal from "sweetalert";
@@ -14,7 +12,6 @@ export default class Newproduct extends Component {
     super(props);
     this.state = {
       getList: [],
-      getsublist: [],
       selectedCategory: "",
       selectedSubCategory: "",
       blockhide: false,
@@ -41,9 +38,6 @@ export default class Newproduct extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
 
   onFileChange = (event) => {
     this.setState({ filename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] });
@@ -157,7 +151,7 @@ export default class Newproduct extends Component {
     });
   };
   render() {
-    const { getList, getsublist, isLoaded } = this.state;
+    const { getList, isLoaded } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">

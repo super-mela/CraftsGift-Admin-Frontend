@@ -49,6 +49,10 @@ export default class Sidebar extends Component {
                                     <a className="nav-link sub_nav_link" href="#/admin/offer/create">Add Offers</a>
                                 </nav>
                             </div>
+                            <a className="nav-link" href="#/admin/customorder/list">
+                                <div className="sb-nav-link-icon"><i className="fas fa-cart-arrow-down" /></div>
+                                Orders
+                            </a>
                             <a className={role === "admin" ? "nav-link" : "d-none"} href="#/admin/user/list">
                                 <div className="sb-nav-link-icon"><i className="fas fa-users" /></div>
                                 Roles Management
@@ -58,7 +62,7 @@ export default class Sidebar extends Component {
                                 Customers
                             </a>
                             <a className="nav-link" href="#/admin/payment/list">
-                                <div className="sb-nav-link-icon"><i className="fas fa-users" /></div>
+                                <div className="sb-nav-link-icon"><i className="fas fa-credit-card" /></div>
                                 Payment
                             </a>
 

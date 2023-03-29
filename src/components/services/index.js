@@ -7,6 +7,7 @@ export { default as GetOrderDetails } from './GetOrderDetails';
 export { default as GetCustomerDetails } from './GetCustomerDetails';
 export { default as GetDashboardDetails } from './GetDashboardDetails';
 export { default as GetPaymentDetails } from './GetPaymentDetails';
+export { default as GetCustomOrderDetails } from './GetCustomOrderDetails'
 
 
 

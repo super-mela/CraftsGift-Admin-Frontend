@@ -10,6 +10,7 @@ import Customer from './view/customer';
 import User from './view/user';
 import Payment from './view/payment';
 import Offer from './view/offer';
+import CustomOrder from './view/customOrder';
 
 
 
@@ -26,6 +27,7 @@ export default class rootRoutes extends Component {
             <Route path={`${match.path}/product`} component={Product} />
             <Route path={`${match.path}/category`} component={Category} />
             <Route path={`${match.path}/order`} component={Order} />
+            <Route path={`${match.path}/customorder`} component={CustomOrder} />
             <Route path={`${match.path}/customer`} component={Customer} />
             <Route path={`${match.path}/offer`} component={Offer} />
             <Route path={`${match.path}/user`} component={User} />

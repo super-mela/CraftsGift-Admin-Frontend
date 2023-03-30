@@ -52,17 +52,17 @@ export default class View extends Component {
                                                         {self.country},<br />
                                                         {self.city},<br />
                                                         {self.address},<br />
-                                                        {self.zip},<br />
+                                                        {self.zip},<br /><br />
                                                     </div>
 
                                                 </div>
                                                 <div className="col-lg-5" >
                                                     <div >
-                                                        <img style={{ width: "100%" }} src={API_URL + "/customorder/" + self.image} alt="Custom order" />
+                                                        <img className='image-card' src={API_URL + "/customorder/" + self.image} alt="Custom order" />
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-7">
-                                                    <div className="order-total-dt">
+                                                    <div className="order-total-dt text-display">
                                                         <div className="order-total-left-text">
                                                             Discription:
                                                         </div>

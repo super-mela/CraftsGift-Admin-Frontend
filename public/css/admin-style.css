@@ -589,6 +589,22 @@ input[type=radio] {
     margin-bottom: 10px;
 }
 
+.text-display {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px dashed #efefef;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.image-card {
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgb(109, 94, 88);
+    width: 100%;
+    overflow: hidden;
+}
+
 .input-group>.custom-select:not(:last-child),
 .input-group>.form-control:not(:last-child) {
     box-shadow: inset 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
@@ -600,6 +616,16 @@ input[type=radio] {
     color: #2b2f4c !important;
     border-radius: 3px !important;
     border: 1px solid #efefef !important;
+}
+
+.custom-text {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #2b2f4c !important;
+    border-radius: 3px !important;
+    border: 1px solid #efefef !important;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .search-by-name-input {

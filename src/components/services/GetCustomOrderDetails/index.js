@@ -30,7 +30,22 @@ const getCustomeOrderStatusUpdate = async (data) => {
     }
 };
 
+const getCustomOrderEmailSend = async (data) => {
+    try {
+        let result = await api.post(Apis.GetCustomOrderEmail, data);
+        if (result.errors) {
+            NotificationManager.error(result.errors);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
 export default {
     getAllCustomOrderList,
     getCustomeOrderStatusUpdate,
+    getCustomOrderEmailSend,
 };

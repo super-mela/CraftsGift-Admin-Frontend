@@ -74,9 +74,10 @@ const Apis = {
   GetAllOrderDetails: `${API_URL}/api/order/list`,
   GetOrderStatusUpdate: `${API_URL}/api/order/status/update`,
 
-  //order detail
+  //custom order detail
   GetAllCustomOrderDetails: `${API_URL}/api/order/custom/list`,
-  GetCustomOrderStatusUpdate: `${API_URL}/api/customorder/status/update`,
+  GetCustomOrderStatusUpdate: `${API_URL}/api/order/custom/status/update`,
+  GetCustomOrderEmail: `${API_URL}/api/order/custom/email`,
 
   // customer details
   GetAllCustomerDetails: `${API_URL}/api/customer/list`,

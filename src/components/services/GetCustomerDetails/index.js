@@ -16,9 +16,24 @@ const getAllCustomerList = async () => {
     }
 };
 
+const searchCustomer = async (data) => {
+    try {
+        const value = { searchData: data }
+        let result = await api.post(Apis.SearchCustomer, value);
+        if (result.errors) {
+            NotificationManager.error(result.errors);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 const getCustomerDeleteById = async (id) => {
     try {
-        let result = await api.delete(Apis.GetCustomerDeleteById,{params: {id}});
+        let result = await api.delete(Apis.GetCustomerDeleteById, { params: { id } });
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -31,5 +46,6 @@ const getCustomerDeleteById = async (id) => {
 };
 export default {
     getAllCustomerList,
-    getCustomerDeleteById
+    getCustomerDeleteById,
+    searchCustomer
 };

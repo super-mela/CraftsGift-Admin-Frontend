@@ -18,7 +18,7 @@ const getAllOrderList = async () => {
 
 const getOrderStatusUpdate = async (data) => {
     try {
-        let result = await api.post(Apis.GetOrderStatusUpdate,data);
+        let result = await api.post(Apis.GetOrderStatusUpdate, data);
         if (result.errors) {
             NotificationManager.error(result.errors);
             return null;

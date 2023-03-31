@@ -9,7 +9,7 @@ export default class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            getList: [],
+            getList: [], searchData: ""
         }
     }
     handleBack() {
@@ -22,6 +22,21 @@ export default class View extends Component {
         let list = await GetCustomerDetails.getAllCustomerList();
         this.setState({ getList: list.data })
     }
+    handleChageSearch = (e) => {
+        this.setState({ searchData: e.target.value })
+    }
+    handleSearch = async () => {
+        let list = await GetCustomerDetails.searchCustomer(this.state.searchData);
+        if (list) {
+            if (list.data) {
+                this.setState({ getList: list.data })
+            }
+            else {
+                NotificationManager.error(list.msg, "Customer")
+            }
+        }
+    }
+
     async handlDeleteById(id) {
         swal({
             title: "Are you sure?",
@@ -62,36 +77,18 @@ export default class View extends Component {
                     <li className="breadcrumb-item active">Customer</li>
                 </ol>
                 <div className="row justify-content-between">
-                    <div className="col-lg-3 col-md-4">
+                    <div className="col-lg-6 col-md-6">
                         <div className="bulk-section mt-30">
                             <div className="input-group">
-                                <select id="action" name="action" className="form-control">
-                                    <option selected>Bulk Actions</option>
-                                    <option value={1}>Active</option>
-                                    <option value={2}>Inactive</option>
-                                    <option value={3}>Delete</option>
-                                </select>
+                                <input type="text" className="form-control" placeholder="Search" onChange={(e) => this.handleChageSearch(e)} />
                                 <div className="input-group-append">
-                                    <button className="status-btn hover-btn" type="submit">Apply</button>
+                                    <button className="status-btn hover-btn" type="submit" onClick={this.handleSearch}>Search</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-5 col-md-6">
-                        <div className="bulk-section mt-30">
-                            <div className="search-by-name-input">
-                                <input type="text" className="form-control" placeholder="Search" />
-                            </div>
-                            <div className="input-group">
-                                <select id="categeory" name="categeory" className="form-control">
-                                    <option selected>Active</option>
-                                    <option value={1}>Inactive</option>
-                                </select>
-                                <div className="input-group-append">
-                                    <button className="status-btn hover-btn" type="submit">Search Customer</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="col-lg-6 col-md-6">
+                        <button className="view-all-btn hover-btn" type="submit" onClick={() => this.getCustomer()}>View All</button>
                     </div>
                     <div className="col-lg-12 col-md-12">
                         <div className="card card-static-2 mt-30 mb-30">

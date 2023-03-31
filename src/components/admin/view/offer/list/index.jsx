@@ -5,11 +5,12 @@ import {
 import { GetOfferDetails } from '../../../../services';
 import swal from 'sweetalert';
 import { API_URL } from '../../../../../config';
+import { NotificationManager } from 'react-notifications';
 
 export default class List extends Component {
     constructor(props) {
         super(props);
-        this.state = { getdata: [] }
+        this.state = { getdata: [], searchData: "" }
     }
 
     handleBack() {
@@ -32,11 +33,27 @@ export default class List extends Component {
     async getOffer() {
         let list = await GetOfferDetails.getOfferList()
         console.log(list.data)
-        // let list = await GetOfferDetails.getChildCategoryList();
         this.setState({ getdata: list.data })
     }
     async componentDidMount() {
         this.getOffer();
+    }
+    handleViewAll = () => {
+        this.getOffer()
+    }
+    handleonChange = (e) => {
+        this.setState({ searchData: e.target.value })
+    }
+    handleSearch = async () => {
+        let list = await GetOfferDetails.searchOfferList({ searchData: this.state.searchData })
+        if (list) {
+            if (list.data) {
+                this.setState({ getdata: list.data })
+            }
+            else {
+                NotificationManager.error(list.msg, "Offer")
+            }
+        }
     }
     async handlDeleteById(id) {
         swal({
@@ -73,38 +90,16 @@ export default class List extends Component {
                 </ol>
                 <div className="row justify-content-between">
                     <div className="col-lg-12">
-                        <a href="add_category.html" className="add-btn hover-btn">Add New</a>
+                        <a href="#/admin/offer/create" className="add-btn hover-btn">Add New</a>
                     </div>
-                    <div className="col-lg-3 col-md-4">
-                        <div className="bulk-section mt-30">
-                            <div className="input-group">
-                                <select id="action" name="action" className="form-control">
-                                    <option selected>Bulk Actions</option>
-                                    <option value={1}>Active</option>
-                                    <option value={2}>Inactive</option>
-                                    <option value={3}>Delete</option>
-                                </select>
-                                <div className="input-group-append">
-                                    <button className="status-btn hover-btn" type="submit">Apply</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="col-lg-4 col-md-5">
+                        <input type="text" className="form-control" style={{ marginTop: "20px" }} value={this.state.searchData} onChange={(e) => this.handleonChange(e)} placeholder="Search" />
                     </div>
-                    <div className="col-lg-5 col-md-6">
-                        <div className="bulk-section mt-30">
-                            <div className="search-by-name-input">
-                                <input type="text" className="form-control" placeholder="Search" />
-                            </div>
-                            <div className="input-group">
-                                <select id="categeory" name="categeory" className="form-control">
-                                    <option selected>Active</option>
-                                    <option value={1}>Inactive</option>
-                                </select>
-                                <div className="input-group-append">
-                                    <button className="status-btn hover-btn" type="submit">Search Offers</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="col-lg-2 col-md-3">
+                        <button className="save-btn hover-btn" onClick={this.handleSearch} type="submit">Search</button>
+                    </div>
+                    <div className="col-lg-6 col-md-6">
+                        <button className="view-all-btn hover-btn" type="submit" onClick={this.handleViewAll}>View All</button>
                     </div>
                     <div className="col-lg-12 col-md-12">
                         <div className="card card-static-2 mt-30 mb-30">

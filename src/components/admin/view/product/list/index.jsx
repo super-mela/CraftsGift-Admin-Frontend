@@ -73,6 +73,9 @@ export default class List extends Component {
             this.setState({ changed: true });
         }
     }
+    handleViewAll = () => {
+        this.getProductList()
+    }
     async handlDeleteById(id) {
         swal({
             title: "Are you sure?",
@@ -147,8 +150,7 @@ export default class List extends Component {
 
                     <div className="col-lg-12">
                         <div className="row">
-                            <div className="col-lg-8 col-md-8">
-                                {/* <label className="form-label"><b>Select Product*</b></label> */}
+                            <div className="col-lg-4 col-md-4">
                                 <br />
                                 <AutoSelect
                                     className="basic-single"
@@ -162,11 +164,11 @@ export default class List extends Component {
                             <div className="col-lg-2 col-md-2">
                                 <button className="save-btn hover-btn" type="submit" onClick={this.handleSubmit}>Search</button>
                             </div>
+                            <div className="col-lg-6 col-md-6">
+                                <button className="view-all-btn hover-btn" type='submit' onClick={this.handleViewAll}>View All</button>
+                            </div>
                         </div>
                     </div>
-
-
-
                     <div className="col-lg-12 col-md-12">
                         <div className="card card-static-2 mt-30 mb-30">
                             <div className="card-title-2">

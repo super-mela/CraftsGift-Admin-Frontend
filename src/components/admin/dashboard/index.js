@@ -4,6 +4,9 @@ import Moment from "react-moment";
 import Loader from "../../loader";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { NotificationManager } from "react-notifications";
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +19,7 @@ export default class Home extends Component {
       perPage: 10,
       orgtableData: [],
       currentPage: 0,
+      searchData: "",
     };
   }
   handlePageClick = (e) => {
@@ -68,7 +72,8 @@ export default class Home extends Component {
     this.setState({ isloaded: true });
     let list = await GetDashboardDetails.getAllStatusOrder();
     if (list) {
-      this.setState({ statusList: list.data, isloaded: false });
+      console.log(list)
+      this.setState({ statusList: list.order, isloaded: false });
     } else {
       this.setState({ isloaded: true });
     }
@@ -78,9 +83,31 @@ export default class Home extends Component {
     this.setState({ isloaded: true });
     let list = await GetDashboardDetails.getOrderByStatus(value);
     if (list) {
-      this.setState({ getList: list.order, isloaded: false });
+      if (list.order) {
+        this.setState({ getList: list.order, isloaded: false });
+      }
+      else {
+        NotificationManager.error(list.msg, "Order")
+        this.setState({ isloaded: false });
+      }
     }
   }
+  handleChangeSearch = (e) => {
+    this.setState({ searchData: e.target.value })
+  }
+  handleSearch = async () => {
+    let list = await GetDashboardDetails.getOrderByStatus(this.state.searchData);
+    if (list) {
+      console.log(list)
+      if (list.order) {
+        this.setState({ getList: list.order, isloaded: false });
+      }
+      else {
+        NotificationManager.error(list.msg, "Order")
+      }
+    }
+  }
+
   componentDidMount() {
     this.getOrderList();
     this.getStatusList();
@@ -158,7 +185,7 @@ export default class Home extends Component {
                           className="card-count"
                           key={index}
                           style={
-                            row.status === "processing"
+                            row.status === "pending"
                               ? { display: "block" }
                               : { display: "none" }
                           }
@@ -200,35 +227,41 @@ export default class Home extends Component {
               </div>
               <div className="col-xl-12 col-md-12">
                 <div className="card card-static-2 mb-30">
-                  <div className="col-lg-5 col-md-6">
-                    <div className="bulk-section mt-30">
-                      <div className="search-by-name-input">
-                        {/* <input className="form-control" placeholder="Search" /> */}
-                        <b>Select Status:</b>
+                  <div className="row mx-0">
+                    <div className="col-lg-6 col-md-6">
+                      <div className="bulk-section mt-30 ">
+                        <div className="input-group">
+                          <input className="form-control" placeholder="Search" onChange={(e) => this.handleChangeSearch(e)} />
+                          <button className="status-btn hover-btn" type="submit" onClick={this.handleSearch}>Search</button>
+
+                        </div>
                       </div>
-                      <div className="input-group">
-                        <select
-                          id="categeory"
-                          className="form-control"
-                          name="status"
-                          value={status}
-                          onChange={(e) => this.handleChangeStatus(e)}
-                        >
-                          <option selected>Select Status</option>
-                          <option value="processing">Processing</option>
-                          <option value="shipping">Shipping</option>
-                          <option value="delieverd">Delivered</option>
-                          <option value="cancel">Cancel</option>
-                        </select>
-                        <div className="input-group-append">
-                          {/* <button className="status-btn hover-btn" type="submit" onChange={(e) => this.handleChangeStatus(e)}>Search Product</button> */}
+                    </div>
+                    <div className="col-lg-6 col-md-6">
+                      <div className="bulk-section mt-30 ">
+                        <div className="input-group">
+                          <b style={{ marginRight: "15px", display: "flex", alignItems: "center" }}>Select Status:</b>
+                          <select
+                            id="categeory"
+                            className="form-control"
+                            name="status"
+                            value={status}
+                            onChange={(e) => this.handleChangeStatus(e)}
+                          >
+                            <option selected disabled>Select Status</option>
+                            <option value="pending">Processing</option>
+                            <option value="shipping">Shipping</option>
+                            <option value="delieverd">Delivered</option>
+                            <option value="cancel">Cancel</option>
+                          </select>
+
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="card-title-2">
                     <h4>Recent Orders</h4>
-                    <button className="view-btn hover-btn">View All</button>
+                    <button onClick={() => this.getOrderList()} className="view-btn hover-btn">View All</button>
                   </div>
                   <div className="card-body-table">
                     <div className="table-responsive">

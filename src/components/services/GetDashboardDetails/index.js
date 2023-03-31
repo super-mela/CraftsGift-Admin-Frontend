@@ -4,8 +4,8 @@ import { NotificationManager } from 'react-notifications';
 
 const getOrderByStatus = async (status) => {
     try {
-        let data = { status: status}
-        let result = await api.post(Apis.GetOrderByStatus,data);
+        let data = { searchData: status }
+        let result = await api.post(Apis.GetOrderByStatus, data);
         if (result.errors) {
             NotificationManager.error(result.errors);
             return null;

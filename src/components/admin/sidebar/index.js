@@ -64,18 +64,13 @@ export default class Sidebar extends Component {
                                     <a className="nav-link sub_nav_link" href="#">Payment </a>
                                     <a className="nav-link sub_nav_link" href="#">Shipping </a>
                                     <a className="nav-link sub_nav_link" href="#">Banner </a>
-                                    <a className="nav-link sub_nav_link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdvert" aria-expanded="false" aria-controls="collapseAdvert">
-                                        Advertisement
-                                        <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                                    </a>
-                                    <div className="collapse" id="collapseAdvert" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                        <nav className="sb-sidenav-menu-nested nav">
-                                            <a className="nav-link sub_nav_link" href="#">Slider</a>
-                                            <a className="nav-link sub_nav_link" href="#">Green card</a>
-                                            <a className="nav-link sub_nav_link" href="#">category</a>
+                                    <a className="nav-link sub_nav_link">Advertisement<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div></a>
+                                    <nav className="sb-sidenav-menu-nested nav">
+                                        <a className="nav-link sub_nav_link" href="#">Slider</a>
+                                        <a className="nav-link sub_nav_link" href="#">Green Banner</a>
+                                        <a className="nav-link sub_nav_link" href="#">category</a>
 
-                                        </nav>
-                                    </div>
+                                    </nav>
                                 </nav>
                             </div>
                             <a className={role === "admin" ? "nav-link" : "d-none"} href="#/admin/user/list">

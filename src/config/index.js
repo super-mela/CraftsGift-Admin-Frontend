@@ -20,6 +20,7 @@ const Apis = {
   CreateOfferList: `${API_URL}/api/offer/create`,
   GetAllOfferList: `${API_URL}/api/offer/list`,
   GetUpdateOfferList: `${API_URL}/api/offer/update`,
+  SearchOfferList: `${API_URL}/api/offer/search`,
   GetOfferDeleteById: `${API_URL}/api/offer/delete`,
 
   //location api
@@ -42,7 +43,7 @@ const Apis = {
 
   //Sub category api
   CreateSubCategoryList: `${API_URL}/api/category/create-sub`,
-  GEtAllSubCategoryList: `${API_URL}/api/category/sub-list`,
+  GetAllCategoryByType: `${API_URL}/api/category/search`,
   GetUpdateSubCategoryList: `${API_URL}/api/category/sub-list/update`,
   GetSubDeleteById: `${API_URL}/api/category/sub-list/delete`,
 
@@ -77,6 +78,8 @@ const Apis = {
   //custom order detail
   GetAllCustomOrderDetails: `${API_URL}/api/order/custom/list`,
   GetCustomOrderStatusUpdate: `${API_URL}/api/order/custom/status/update`,
+  SearchCustomOrder: `${API_URL}/api/order/custom/search`,
+  GetAllCustomStatusOrder: `${API_URL}/api/order/custom/count`,
   GetCustomOrderEmail: `${API_URL}/api/order/custom/email`,
 
   // customer details

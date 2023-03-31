@@ -59,9 +59,9 @@ const createSubCategoryList = async (data) => {
     }
 };
 
-const getSubCategoryList = async () => {
+const getCategoryByType = async (data) => {
     try {
-        let result = await api.get(Apis.GEtAllSubCategoryList);
+        let result = await api.post(Apis.GetAllCategoryByType, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;
@@ -172,7 +172,7 @@ export default {
     getCategoryList,
     getUpdateCategoryList,
     createSubCategoryList,
-    getSubCategoryList,
+    getCategoryByType,
     getUpdateSubList,
     getSubDeleteById,
     getSelectSubCategory,

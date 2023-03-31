@@ -898,6 +898,19 @@ div#editor {
     margin-left: 1rem;
 }
 
+.view-all-btn {
+    background: #f55d2c !important;
+    border: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 3px;
+    margin-top: 20px;
+    float: right;
+}
+
 .fea-img {
     position: relative;
 }

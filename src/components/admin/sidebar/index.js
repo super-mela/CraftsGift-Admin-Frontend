@@ -60,7 +60,7 @@ export default class Sidebar extends Component {
                             </a>
                             <div className="collapse" id="collapseSetting" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav className="sb-sidenav-menu-nested nav">
-                                    <a className="nav-link sub_nav_link" href="#">About us</a>
+                                    <a className="nav-link sub_nav_link" href="#/admin/setting/aboutus">About us</a>
                                     <a className="nav-link sub_nav_link" href="#">Payment </a>
                                     <a className="nav-link sub_nav_link" href="#">Shipping </a>
                                     <a className="nav-link sub_nav_link" href="#">Banner </a>

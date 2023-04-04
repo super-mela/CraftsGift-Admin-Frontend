@@ -87,6 +87,11 @@ const Apis = {
   GetCustomerDeleteById: `${API_URL}/api/customer/delete`,
   SearchCustomer: `${API_URL}/api/customer/search`,
 
+  // setting About us
+  CreateAboutUs: `${API_URL}/api/setting/aboutus/create`,
+  GetAboutUs: `${API_URL}/api/setting/aboutus/list`,
+  UpdateAboutUs: `${API_URL}/api/setting/aboutus/update`,
+
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,
 };

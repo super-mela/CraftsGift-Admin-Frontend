@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import {
     Button
 } from "@material-ui/core";
-import { GetCategoryDetails } from '../../../../services';
+import { GetSettingDetails } from '../../../../services';
 import swal from 'sweetalert';
+import { NotificationManager } from 'react-notifications';
 
 export default class AboutUs extends Component {
     constructor(props) {
@@ -65,16 +66,16 @@ export default class AboutUs extends Component {
         this.setState({ founder: { name: "", proffession: "", priview: "", founderimage: "", founderfilename: "" } })
     }
     onFileChange = (event) => {
-        this.setState({ ...this.state, founder: { ...this.state.founder, priview: URL.createObjectURL(event.target.files[0]), founderfilename: new Date().getTime(), founderimage: event.target.files[0] } });
+        this.setState({ ...this.state, founder: { ...this.state.founder, priview: URL.createObjectURL(event.target.files[0]), founderfilename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1], founderimage: event.target.files[0] } });
     };
 
     onSideFileChange = (event) => {
-        this.setState({ sidefilename: new Date().getTime() })
+        this.setState({ sidefilename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] })
         this.setState({ sideimage: event.target.files[0] })
         this.setState({ sideprivew: URL.createObjectURL(event.target.files[0]) })
     };
     onBannerFileChange = (event) => {
-        this.setState({ bannerfilename: new Date().getTime() })
+        this.setState({ bannerfilename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] })
         this.setState({ bannerimage: event.target.files[0] })
         this.setState({ bannerprivew: URL.createObjectURL(event.target.files[0]) })
     };
@@ -94,28 +95,39 @@ export default class AboutUs extends Component {
     }
     handleSubmit = async event => {
         event.preventDefault();
+        const { title, founders, paragraph1, paragraph2, paragraph3, paragraph4, sidefilename, sideimage, card1, card2, bannerfilename, bannerimage } = this.state
         console.log(this.state)
-        // const { categoryName, subCategory, image, filename } = this.state;
-        // const formData = new FormData();
-        // formData.append("categoryName", categoryName);
-        // formData.append("subCategories", JSON.stringify(subCategory));
-        // formData.append("image", image, filename);
-        // swal({
-        //     title: "Are you sure?",
-        //     text: "You want to Add/update About Us",
-        //     icon: "warning",
-        //     buttons: true,
-        //     dangerMode: true,
-        // })
-        //     .then(async (success) => {
-        //         if (success) {
-        //             let list = await GetCategoryDetails.createCategoryList(formData);
-        //             if (list) {
-        //                 this.setState({ categoryName: "", subCategory: [], image: "" })
-        //                 this.getCategory();
-        //             }
-        //         }
-        //     });
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("paragraph1", paragraph1);
+        formData.append("paragraph2", paragraph2);
+        formData.append("paragraph3", paragraph3);
+        formData.append("paragraph4", paragraph4);
+        formData.append("card1", JSON.stringify(card1));
+        formData.append("card2", JSON.stringify(card2));
+        formData.append("founders", JSON.stringify(founders));
+        formData.append("sideimage", sideimage, sidefilename);
+        formData.append("bannerimage", bannerimage, bannerfilename);
+        for (var row of founders) {
+            formData.append(row.founderfilename, row.founderimage, row.founderfilename);
+            console.log(formData.get(row.founderfilename))
+
+        }
+        swal({
+            title: "Are you sure?",
+            text: "You want to Add/update About Us",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then(async (success) => {
+                if (success) {
+                    let list = await GetSettingDetails.createAboutUs(formData);
+                    if (list) {
+                        NotificationManager.success("About Us Add/Update Successfuly", "About Us")
+                    }
+                }
+            });
     }
     render() {
         return (
@@ -332,7 +344,7 @@ export default class AboutUs extends Component {
                     </div>
 
                 </div>
-                <button className="save-btn hover-btn" type="submit" onClick={this.handleSubmit}>Add New</button>
+                <button className="save-btn hover-btn" type="submit" onClick={this.handleSubmit}>Add/Update</button>
 
             </div >
 

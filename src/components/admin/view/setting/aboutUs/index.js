@@ -5,6 +5,7 @@ import {
 import { GetSettingDetails } from '../../../../services';
 import swal from 'sweetalert';
 import { NotificationManager } from 'react-notifications';
+import { API_URL } from '../../../../../config';
 
 export default class AboutUs extends Component {
     constructor(props) {
@@ -59,7 +60,15 @@ export default class AboutUs extends Component {
             day = '0' + day;
         return [year, month, day].join('-');
     }
-
+    getAboutUs = async () => {
+        let list = await GetSettingDetails.getAboutUs();
+        const aboutus = list.aboutus
+        this.setState({ ...this.state, ...aboutus })
+        console.log(this.state)
+    }
+    async componentDidMount() {
+        this.getAboutUs();
+    }
     handleFounderMeta = async (e) => {
         console.log(this.state.founder)
         this.setState({ founders: [...this.state.founders, this.state.founder] })
@@ -105,14 +114,16 @@ export default class AboutUs extends Component {
         formData.append("paragraph4", paragraph4);
         formData.append("card1", JSON.stringify(card1));
         formData.append("card2", JSON.stringify(card2));
-        formData.append("founders", JSON.stringify(founders));
-        formData.append("sideimage", sideimage, sidefilename);
-        formData.append("bannerimage", bannerimage, bannerfilename);
-        for (var row of founders) {
-            formData.append(row.founderfilename, row.founderimage, row.founderfilename);
-            console.log(formData.get(row.founderfilename))
-
+        formData.append("sidefilename", sidefilename);
+        formData.append("bannerfilename", bannerfilename);
+        sideimage && formData.append("sideimage", sideimage, sidefilename);
+        bannerimage && formData.append("bannerimage", bannerimage, bannerfilename);
+        for (var index in founders) {
+            founders[index].founderimage && formData.append(founders[index].founderfilename, founders[index].founderimage, founders[index].founderfilename);
+            founders[index].priview = ""
+            founders[index].founderimage = ""
         }
+        formData.append("founders", JSON.stringify(founders));
         swal({
             title: "Are you sure?",
             text: "You want to Add/update About Us",
@@ -225,9 +236,9 @@ export default class AboutUs extends Component {
                                     </span>
                                     <img
                                         alt='About Us'
-                                        src={this.state.sideprivew}
+                                        src={this.state.sideprivew ? this.state.sideprivew : API_URL + "/aboutus/" + this.state.sidefilename}
                                         decoding="async" data-nimg="intrinsic"
-                                        srcset={`${this.state.sideprivew} w=108 q=75 1x, ${this.state.sideprivew}w=1920 q=75 2x`}
+                                        srcset={`${this.state.sideprivew ? this.state.sideprivew : API_URL + "/aboutus/" + this.state.sidefilename} w=108 q=75 1x, ${this.state.sideprivew ? this.state.sideprivew : API_URL + "/aboutus/" + this.state.sidefilename}w=1920 q=75 2x`}
                                         style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                 </span>
 
@@ -266,11 +277,11 @@ export default class AboutUs extends Component {
                             </span>
                             <img
                                 alt="About Us"
-                                src={this.state.bannerprivew}
+                                src={this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/aboutus/" + this.state.bannerfilename}
                                 decoding="async"
                                 data-nimg="intrinsic"
                                 className="block rounded-lg"
-                                srcset={`${this.state.bannerprivew}w=1920 q=75 1x, ${this.state.bannerprivew}w=3840 q=75 2x`}
+                                srcset={`${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/aboutus/" + this.state.bannerfilename}w=1920 q=75 1x, ${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/aboutus/" + this.state.bannerfilename}w=3840 q=75 2x`}
                                 style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%' }} />
                         </span>
                         <div className="form-group pb-4">
@@ -327,9 +338,9 @@ export default class AboutUs extends Component {
                                         </span>
                                         <img
                                             alt='Founder'
-                                            src={item.priview}
+                                            src={item.priview ? item.priview : API_URL + "/aboutus/founders/" + item.founderfilename}
                                             decoding="async" data-nimg="intrinsic"
-                                            srcset={`${item.priview} w=108 q=75 1x, ${item.priview}w=1920 q=75 2x`}
+                                            srcset={`${item.priview ? item.priview : API_URL + "/aboutus/founders/" + item.founderfilename} w=108 q=75 1x, ${item.priview ? item.priview : API_URL + "/aboutus/founders/" + item.founderfilename}w=1920 q=75 2x`}
                                             style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                     </span>
 

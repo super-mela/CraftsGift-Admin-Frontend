@@ -70,7 +70,6 @@ export default class AboutUs extends Component {
         this.getAboutUs();
     }
     handleFounderMeta = async (e) => {
-        console.log(this.state.founder)
         this.setState({ founders: [...this.state.founders, this.state.founder] })
         this.setState({ founder: { name: "", proffession: "", priview: "", founderimage: "", founderfilename: "" } })
     }
@@ -79,19 +78,30 @@ export default class AboutUs extends Component {
     };
 
     onSideFileChange = (event) => {
-        this.setState({ sidefilename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] })
+        this.setState({ sidefilename: this.state.sidefilename ? this.state.sidefilename : new Date().getTime() + "." + event.target.files[0].type.split("/")[1] })
         this.setState({ sideimage: event.target.files[0] })
         this.setState({ sideprivew: URL.createObjectURL(event.target.files[0]) })
     };
     onBannerFileChange = (event) => {
-        this.setState({ bannerfilename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1] })
+        this.setState({ bannerfilename: this.state.bannerfilename ? this.state.bannerfilename : new Date().getTime() + "." + event.target.files[0].type.split("/")[1] })
         this.setState({ bannerimage: event.target.files[0] })
         this.setState({ bannerprivew: URL.createObjectURL(event.target.files[0]) })
     };
 
     handleRemovesFounders = async (index) => {
+        const remove = this.state.founders[index]
+        this.state.remove = remove
         this.state.founders.splice(index, 1)
         this.setState({ founder: { name: "", proffession: "", priview: "", image: "", filename: "" } })
+        const data = this.state;
+
+        await GetSettingDetails.getUpdateAboutUs({ data })
+            .then((response) => {
+                if (response) {
+                    this.getAboutUs()
+                }
+            })
+            .catch((error) => console.log(error))
     }
     handleFounder = (e) => {
         this.setState({ ...this.state, founder: { ...this.state.founder, [e.target.name]: e.target.value } })

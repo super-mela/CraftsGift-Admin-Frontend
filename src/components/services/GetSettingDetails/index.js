@@ -33,7 +33,7 @@ const getAboutUs = async () => {
 };
 const getUpdateAboutUs = async (data) => {
     try {
-        let result = await apifile.post(Apis.UpdateAboutUs, data);
+        let result = await api.post(Apis.UpdateAboutUs, data);
         if (result.data.error) {
             NotificationManager.error(result.data.error);
             return null;

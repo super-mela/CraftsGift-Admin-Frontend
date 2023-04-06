@@ -64,7 +64,6 @@ export default class AboutUs extends Component {
         let list = await GetSettingDetails.getAboutUs();
         const aboutus = list.aboutus
         this.setState({ ...this.state, ...aboutus })
-        console.log(this.state)
     }
     async componentDidMount() {
         this.getAboutUs();
@@ -115,7 +114,7 @@ export default class AboutUs extends Component {
     handleSubmit = async event => {
         event.preventDefault();
         const { title, founders, paragraph1, paragraph2, paragraph3, paragraph4, sidefilename, sideimage, card1, card2, bannerfilename, bannerimage } = this.state
-        console.log(this.state)
+
         const formData = new FormData();
         formData.append("title", title);
         formData.append("paragraph1", paragraph1);
@@ -155,7 +154,7 @@ export default class AboutUs extends Component {
             <div className="container-fluid">
                 <div className="row ">
                     <div className="col-lg-5 col-md-9 col-lg-6 ">
-                        <h2 className="mt-30 page-title">Categories</h2>
+                        <h2 className="mt-30 page-title">About Us</h2>
                     </div>
                     <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
                         <Button variant="contained" onClick={(e) => this.handleBack()}><i class="fas fa-arrow-left" /> Back</Button>

@@ -4,6 +4,7 @@ import apifile from '../../ApiFileConfig'
 import { NotificationManager } from 'react-notifications';
 
 
+///////////////About Us///////////////////////////
 const createAboutUs = async (data) => {
     try {
         let result = await apifile.post(Apis.CreateAboutUs, data);
@@ -45,9 +46,41 @@ const getUpdateAboutUs = async (data) => {
     }
 };
 
+/////////////////////Banner Image//////////////////////////////
+
+const createBannerIamge = async (data) => {
+    try {
+        let result = await apifile.post(Apis.CreateBannerIamge, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getBannerImage = async () => {
+    try {
+        let result = await api.get(Apis.GetBannerImage);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 
 export default {
     createAboutUs,
     getAboutUs,
     getUpdateAboutUs,
+    createBannerIamge,
+    getBannerImage,
 };

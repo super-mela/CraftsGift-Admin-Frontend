@@ -92,6 +92,10 @@ const Apis = {
   GetAboutUs: `${API_URL}/api/setting/aboutus/list`,
   UpdateAboutUs: `${API_URL}/api/setting/aboutus/update`,
 
+  //setting Banner Iamge
+  CreateBannerIamge: `${API_URL}/api/setting/banner/create`,
+  GetBannerImage: `${API_URL}/api/setting/banner/list`,
+
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,
 };

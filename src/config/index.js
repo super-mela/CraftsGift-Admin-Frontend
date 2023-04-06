@@ -96,6 +96,12 @@ const Apis = {
   CreateBannerIamge: `${API_URL}/api/setting/banner/create`,
   GetBannerImage: `${API_URL}/api/setting/banner/list`,
 
+  //setting Shipping
+  CreateShippers: `${API_URL}/api/setting/shipping/create`,
+  GetShippers: `${API_URL}/api/setting/shipping/list`,
+  UpdateShippers: `${API_URL}/api/setting/shipping/update`,
+
+
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,
 };

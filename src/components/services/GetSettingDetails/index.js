@@ -76,6 +76,49 @@ const getBannerImage = async () => {
     }
 };
 
+///////////////////////shipping company and price//////////////////////
+
+const createShippers = async (data) => {
+    try {
+        let result = await api.post(Apis.CreateShippers, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getShipper = async () => {
+    try {
+        let result = await api.get(Apis.GetShippers);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getUpdateShippers = async (data) => {
+    try {
+        let result = await api.post(Apis.UpdateShippers, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
 
 export default {
     createAboutUs,
@@ -83,4 +126,8 @@ export default {
     getUpdateAboutUs,
     createBannerIamge,
     getBannerImage,
+    createShippers,
+    getShipper,
+    getUpdateShippers,
+
 };

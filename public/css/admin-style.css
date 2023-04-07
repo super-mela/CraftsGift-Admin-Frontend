@@ -898,6 +898,45 @@ div#editor {
     margin-left: 1rem;
 }
 
+.push-btn {
+    background: #66a6ff !important;
+    border: 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-left: 1rem;
+}
+
+.push-btn:hover {
+    background: #fff !important;
+    border: 1px solid #66a6ff;
+    color: #66a6ff !important;
+
+}
+
+.remove-btn {
+    background: #ff7866 !important;
+    border: 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-left: 1rem;
+}
+
+.remove-btn:hover {
+    background: #fff !important;
+    border: 1px solid #ff7866;
+    color: #ff7866 !important;
+}
+
 .view-all-btn {
     background: #f55d2c !important;
     border: 0;

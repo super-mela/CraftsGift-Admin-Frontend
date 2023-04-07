@@ -954,6 +954,19 @@ div#editor {
     position: relative;
 }
 
+.txt-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.cat-input {
+    background-color: #fffdfda9 !important;
+    border: none !important;
+}
+
 .fea-img img {
     width: 100%;
     border-radius: 3px;

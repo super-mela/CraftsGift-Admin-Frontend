@@ -93,14 +93,15 @@ export default class AboutUs extends Component {
         this.state.founders.splice(index, 1)
         this.setState({ founder: { name: "", proffession: "", priview: "", image: "", filename: "" } })
         const data = this.state;
-
-        await GetSettingDetails.getUpdateAboutUs({ data })
-            .then((response) => {
-                if (response) {
-                    this.getAboutUs()
-                }
-            })
-            .catch((error) => console.log(error))
+        if (!remove.priview) {
+            await GetSettingDetails.getUpdateAboutUs({ data })
+                .then((response) => {
+                    if (response) {
+                        this.getAboutUs()
+                    }
+                })
+                .catch((error) => console.log(error))
+        }
     }
     handleFounder = (e) => {
         this.setState({ ...this.state, founder: { ...this.state.founder, [e.target.name]: e.target.value } })

@@ -101,11 +101,15 @@ const Apis = {
   GetShippers: `${API_URL}/api/setting/shipping/list`,
   UpdateShippers: `${API_URL}/api/setting/shipping/update`,
 
-  //setting Shipping
+  //setting Catagory Advert
   CreateCatAdvert: `${API_URL}/api/setting/category/create`,
   GetCatAdvert: `${API_URL}/api/setting/category/list`,
   UpdateCatAdvert: `${API_URL}/api/setting/category/update`,
 
+  //setting Slider
+  CreateSlider: `${API_URL}/api/setting/slider/create`,
+  GetSlider: `${API_URL}/api/setting/slider/list`,
+  UpdateSlider: `${API_URL}/api/setting/slider/update`,
 
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import {
-    Button
-} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { GetSettingDetails } from '../../../../../services';
 import swal from 'sweetalert';
 import { NotificationManager } from 'react-notifications';
@@ -39,25 +37,24 @@ export default class Slider extends Component {
         this.setState({ sliders: [...this.state.sliders, this.state.slider] })
         this.setState({ slider: { title: "", subtitle: "", priview: "", sliderimage: "", sliderfilename: "" } })
     }
-    onFileChange = (event) => {
+    onSideFileChange = (event) => {
         this.setState({ ...this.state, slider: { ...this.state.slider, priview: URL.createObjectURL(event.target.files[0]), sliderfilename: new Date().getTime() + "." + event.target.files[0].type.split("/")[1], sliderimage: event.target.files[0] } });
     };
-
-
     handleRemovessliders = async (index) => {
         const remove = this.state.sliders[index]
         this.state.remove = remove
         this.state.sliders.splice(index, 1)
         this.setState({ slider: { title: "", subtitle: "", priview: "", image: "", filename: "" } })
         const data = this.state;
-
-        await GetSettingDetails.getUpdateAboutUs({ data })
-            .then((response) => {
-                if (response) {
-                    this.getSlider()
-                }
-            })
-            .catch((error) => console.log(error))
+        if (remove.priview) {
+            await GetSettingDetails.getUpdateSlider({ data })
+                .then((response) => {
+                    if (response) {
+                        this.getSlider()
+                    }
+                })
+                .catch((error) => console.log(error))
+        }
     }
     handleslider = (e) => {
         this.setState({ ...this.state, slider: { ...this.state.slider, [e.target.name]: e.target.value } })
@@ -81,7 +78,7 @@ export default class Slider extends Component {
         })
             .then(async (success) => {
                 if (success) {
-                    let list = await GetSettingDetails.createAboutUs(formData);
+                    let list = await GetSettingDetails.createSliders(formData);
                     if (list) {
                         NotificationManager.success("Sliders Add/Update Successfuly", "Sliders")
                     }
@@ -131,15 +128,13 @@ export default class Slider extends Component {
                                     </span>
                                     <img
                                         alt='Sliders'
-                                        src={this.state.sideprivew}
+                                        src={this.state.slider.priview}
                                         decoding="async" data-nimg="intrinsic"
-                                        srcset={`${this.state.sideprivew} w=108 q=75 1x, ${this.state.sideprivew}w=1920 q=75 2x`}
+                                        srcset={`${this.state.slider.priview} w=108 q=75 1x, ${this.state.slider.priview}w=1920 q=75 2x`}
                                         style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                 </span>
-
                             </div>
                             <div className="form-group pb-4">
-
                                 <input
                                     accept="image/*"
                                     type="file"
@@ -160,7 +155,7 @@ export default class Slider extends Component {
                             <div className=' col-lg-6 col-md-6 flex-column p-4' key={key}>
                                 <div className='d-flex  flex-row rounded-lg py-2' style={{ backgroundColor: "#dad7cd" }}>
                                     <div className=' col-lg-6 col-md-6 d-flex flex-column justify-content-center'>
-                                        <label className="form-label py-2 mb-0 ml-2">{item.name}</label>
+                                        <label className="form-label py-2 mb-0 ml-2">{item.title}</label>
                                         <label className="form-label py-2 mb-0 ml-2" style={{ color: "gray" }}>{item.subtitle}</label>
                                     </div>
                                     <div className=' col-lg-6 col-md-6 '>
@@ -174,9 +169,9 @@ export default class Slider extends Component {
                                             </span>
                                             <img
                                                 alt='slider'
-                                                src={item.priview ? item.priview : API_URL + "/sliders/" + item.sliderfilename}
+                                                src={item.priview ? item.priview : API_URL + "/slider/" + item.sliderfilename}
                                                 decoding="async" data-nimg="intrinsic"
-                                                srcset={`${item.priview ? item.priview : API_URL + "/sliders/" + item.sliderfilename} w=108 q=75 1x, ${item.priview ? item.priview : API_URL + "/sliders/" + item.sliderfilename}w=1920 q=75 2x`}
+                                                srcset={`${item.priview ? item.priview : API_URL + "/slider/" + item.sliderfilename} w=108 q=75 1x, ${item.priview ? item.priview : API_URL + "/slider/" + item.sliderfilename}w=1920 q=75 2x`}
                                                 style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                         </span>
                                     </div>
@@ -187,12 +182,9 @@ export default class Slider extends Component {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 <button className="save-btn hover-btn" type="submit" onClick={this.handleSubmit}>Add/Update</button>
-
             </div >
-
         )
     }
 }

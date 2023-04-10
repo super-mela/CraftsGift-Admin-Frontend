@@ -149,6 +149,51 @@ const getCatAdvert = async () => {
     }
 };
 
+///////////////////////Home page Slider//////////////////////
+
+const createSliders = async (data) => {
+    try {
+        let result = await apifile.post(Apis.CreateSlider, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getSlider = async () => {
+    try {
+        let result = await api.get(Apis.GetSlider);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getUpdateSlider = async (data) => {
+    try {
+        let result = await api.post(Apis.UpdateSlider, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+
 export default {
     createAboutUs,
     getAboutUs,
@@ -160,4 +205,7 @@ export default {
     getUpdateShippers,
     createCatAdvert,
     getCatAdvert,
+    createSliders,
+    getSlider,
+    getUpdateSlider
 };

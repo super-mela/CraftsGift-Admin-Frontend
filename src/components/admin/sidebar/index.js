@@ -67,7 +67,7 @@ export default class Sidebar extends Component {
                                     <a className="nav-link sub_nav_link">Advertisement<div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div></a>
                                     <nav className="sb-sidenav-menu-nested nav">
                                         <a className="nav-link sub_nav_link" href="#/admin/setting/slider">Slider</a>
-                                        <a className="nav-link sub_nav_link" href="#">Green Banner</a>
+                                        <a className="nav-link sub_nav_link" href="#/admin/setting/advertbanner">Home page Banner</a>
                                         <a className="nav-link sub_nav_link" href="#/admin/setting/categoryadvert">Category</a>
 
                                     </nav>

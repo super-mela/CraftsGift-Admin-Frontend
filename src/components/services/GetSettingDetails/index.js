@@ -208,6 +208,36 @@ const getUpdateSlider = async (data) => {
 };
 
 
+///////////////////////Home page Advertisiment Banner//////////////////////
+
+const createAdvertBanner = async (data) => {
+    try {
+        let result = await apifile.post(Apis.CreateAdvertBanner, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getAdvertBanner = async () => {
+    try {
+        let result = await api.get(Apis.GetAdvertBanner);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 export default {
     createAboutUs,
     getAboutUs,
@@ -222,5 +252,7 @@ export default {
     createSliders,
     getSlider,
     getUpdateSlider,
-    getUpdateCatAdvert
+    getUpdateCatAdvert,
+    createAdvertBanner,
+    getAdvertBanner,
 };

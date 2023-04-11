@@ -111,6 +111,11 @@ const Apis = {
   GetSlider: `${API_URL}/api/setting/slider/list`,
   UpdateSlider: `${API_URL}/api/setting/slider/update`,
 
+  //setting Advertisment Banner
+  CreateAdvertBanner: `${API_URL}/api/setting/advertbanner/create`,
+  GetAdvertBanner: `${API_URL}/api/setting/advertbanner/list`,
+
+
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,
 };

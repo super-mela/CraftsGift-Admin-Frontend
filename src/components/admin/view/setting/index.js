@@ -5,6 +5,7 @@ import BannerImage from './banner';
 import ShippingType from './shipping';
 import CategoryAdvert from './advertisemnt/category';
 import Slider from './advertisemnt/slider';
+import AdvertBanner from './advertisemnt/banner';
 
 export default class Setting extends Component {
     render() {
@@ -19,8 +20,7 @@ export default class Setting extends Component {
                         <Route path={[`${match.path}/shippingtype`]} component={ShippingType} />
                         <Route path={[`${match.path}/categoryadvert`]} component={CategoryAdvert} />
                         <Route path={[`${match.path}/slider`]} component={Slider} />
-                        {/* <Route path={[`${match.path}/create`]} component={Createproduct} />
-                        <Route path={[`${match.path}/more-photo`]} component={Uploadphoto} /> */}
+                        <Route path={[`${match.path}/advertbanner`]} component={AdvertBanner} />
                     </Switch>
                     {/* </HashRouter> */}
                 </main>

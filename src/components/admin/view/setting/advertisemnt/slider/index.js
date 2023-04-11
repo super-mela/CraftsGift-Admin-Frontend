@@ -46,7 +46,7 @@ export default class Slider extends Component {
         this.state.sliders.splice(index, 1)
         this.setState({ slider: { title: "", subtitle: "", priview: "", image: "", filename: "" } })
         const data = this.state;
-        if (remove.priview) {
+        if (!remove.priview) {
             await GetSettingDetails.getUpdateSlider({ data })
                 .then((response) => {
                     if (response) {

@@ -11,7 +11,7 @@ export default class Customer extends Component {
                 <main>
                     <Switch>
                         <Route path={[`${match.path}/list`]} component={View} />
-                        <Route path={[`${match.path}/edit/:id`]} component={Edit} />
+                        <Route path={[`${match.path}/email/:email/:name`]} component={Edit} />
                     </Switch>
                 </main>
             </div>

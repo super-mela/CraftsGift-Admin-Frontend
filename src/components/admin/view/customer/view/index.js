@@ -36,7 +36,9 @@ export default class View extends Component {
             }
         }
     }
-
+    handlEditRow(row) {
+        this.props.history.push({ pathname: `/admin/customer/email/${row.email}/${row.name}` })
+    }
     async handlDeleteById(id) {
         swal({
             title: "Are you sure?",
@@ -108,21 +110,18 @@ export default class View extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {
-                                                getList.map((row, index) => (
-                                                    <tr key={index}>
-                                                        <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={7} /></td>
-                                                        <td>{++index}</td>
-                                                        <td>{row.name}</td>
-                                                        <td>{row.email}</td>
-                                                        <td className="action-btns">
-                                                            {/* <Edit state={row} /> */}
-                                                            <Typography className="email-btn"  ><i className="fas fa-envelope" /></Typography>
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            }
-
+                                            {getList.map((row, index) => (
+                                                <tr key={index}>
+                                                    <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={7} /></td>
+                                                    <td>{++index}</td>
+                                                    <td>{row.name}</td>
+                                                    <td>{row.email}</td>
+                                                    <td className="action-btns">
+                                                        {/* <Edit state={row} /> */}
+                                                        <Typography onClick={(e) => this.handlEditRow(row)} className="email-btn" ><i className="fas fa-envelope" /></Typography>
+                                                    </td>
+                                                </tr>
+                                            ))}
                                         </tbody>
                                     </table>
                                 </div>

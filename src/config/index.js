@@ -86,6 +86,7 @@ const Apis = {
   GetAllCustomerDetails: `${API_URL}/api/customer/list`,
   GetCustomerDeleteById: `${API_URL}/api/customer/delete`,
   SearchCustomer: `${API_URL}/api/customer/search`,
+  SendCustomerEmail: `${API_URL}/api/customer/email`,
 
   // setting About us
   CreateAboutUs: `${API_URL}/api/setting/aboutus/create`,

@@ -119,5 +119,6 @@ const Apis = {
 
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,
+  SearchPayment: `${API_URL}/api/payment/search`,
 };
 export { API_URL, Apis };

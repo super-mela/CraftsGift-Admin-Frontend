@@ -10,7 +10,7 @@ export default class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            getList: [], isLoaded: false
+            getList: [], isLoaded: false, searchData: ""
         }
     }
     handleBack() {
@@ -18,43 +18,44 @@ export default class View extends Component {
     }
     async componentDidMount() {
         this.setState({ isLoaded: true })
-        this.getCustomer();
+        this.getAllPayment();
     }
-    async getCustomer() {
+    async getAllPayment() {
         let list = await GetPaymentDetails.getAllPaymentList();
         if (list) {
             this.setState({ getList: list.data, isLoaded: false })
         }
     }
-    async handlDeleteById(id) {
-        swal({
-            title: "Are you sure?",
-            text: "You want to delete User from the List",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then(async (success) => {
-                if (success) {
-                    let value = await GetPaymentDetails.getDeleteUserList(id);
-                    if (value) {
-                        NotificationManager.success(value.msg, 'Status');
-                        setTimeout(
-                            async function () {
-                                window.location.reload();
-                            },
-                            1000
-                        );
-                    }
-                }
-            });
+    async handleChangeStatus(e) {
+        let { value } = e.target;
+        this.setState({ isloaded: true });
+        let list = await GetPaymentDetails.searchPaymentList(value);
+        if (list) {
+            if (list.payment) {
+                this.setState({ getList: list.payment, isloaded: false });
+            }
+            else {
+                NotificationManager.error(list.msg, "Payments");
+                this.setState({ isloaded: false });
+            }
+        }
     }
-    handlEditRow(row) {
-        this.props.history.push({ pathname: `/admin/user/edit/${row.id}`, state: row })
+    handleChangeSearch = (e) => {
+        this.setState({ searchData: e.target.value })
     }
-    handleAddNewUser() {
-        this.props.history.push({ pathname: `/admin/user/create` })
-
+    handeleSearch = async () => {
+        this.setState({ isloaded: true });
+        let list = await GetPaymentDetails.searchPaymentList(this.state.searchData);
+        if (list) {
+            console.log(list)
+            if (list.payment) {
+                this.setState({ getList: list.payment, isloaded: false });
+            }
+            else {
+                NotificationManager.error(list.msg, "Payments");
+                this.setState({ isloaded: false });
+            }
+        }
     }
     render() {
         const { getList, isLoaded } = this.state;
@@ -73,23 +74,34 @@ export default class View extends Component {
                     <li className="breadcrumb-item active">payment</li>
                 </ol>
                 <div className="row justify-content-between">
-                    <div className="col-lg-3 col-md-4">
-                        <div className="bulk-section mt-30">
+                    <div className="col-lg-6 col-md-6">
+                        <div className="bulk-section mt-30 ">
                             <div className="input-group">
-                                <select id="action" name="action" className="form-control">
-                                    <option selected>Bulk Actions</option>
-                                    <option value={1}>Active</option>
-                                    <option value={2}>Inactive</option>
-                                    <option value={3}>Delete</option>
-                                </select>
-                                <div className="input-group-append">
-                                    <button className="status-btn hover-btn" type="submit">Apply</button>
-                                </div>
+                                <input className="form-control" placeholder="Search" onChange={(e) => this.handleChangeSearch(e)} />
+                                <button className="status-btn hover-btn" type="submit" onClick={this.handeleSearch} >Search</button>
+
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                        <Button variant="contained" className="status-btn hover-btn" onClick={(e) => this.handleAddNewUser()}>Add New User</Button>
+                    <div className="col-lg-6 col-md-6">
+                        <div className="bulk-section mt-30 ">
+                            <div className="input-group">
+                                <b style={{ marginRight: "15px", display: "flex", alignItems: "center" }}>Select Status:</b>
+                                <select
+                                    id="categeory"
+                                    className="form-control"
+                                    name="status"
+                                    onChange={(e) => this.handleChangeStatus(e)}
+                                >
+                                    <option selected disabled>Select Status</option>
+                                    <option value="pending">Processing</option>
+                                    <option value="shipping">Shipping</option>
+                                    <option value="delieverd">Delivered</option>
+                                    <option value="cancel">Cancel</option>
+                                </select>
+
+                            </div>
+                        </div>
                     </div>
                     <div className="col-lg-12 col-md-12">
                         {
@@ -97,7 +109,8 @@ export default class View extends Component {
                         }
                         <div className="card card-static-2 mt-30 mb-30">
                             <div className="card-title-2">
-                                <h4>All User</h4>
+                                <h4>All Payments</h4>
+                                <button onClick={() => this.getAllPayment()} className="view-btn hover-btn">View All</button>
                             </div>
                             <div className="card-body-table">
                                 <div className="table-responsive">

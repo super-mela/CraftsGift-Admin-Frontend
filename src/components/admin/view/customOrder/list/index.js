@@ -263,7 +263,6 @@ export default class List extends Component {
                                     <div className="card-title-2">
                                         <h4>Recent Custom Orders</h4>
                                         <button onClick={() => this.getOrderList()} className="view-btn hover-btn">View All</button>
-
                                     </div>
                                     <div className="card-body-table">
                                         <div className="table-responsive">

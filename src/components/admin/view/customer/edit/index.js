@@ -29,6 +29,9 @@ export default class Edit extends Component {
             NotificationManager.error("Check field", 'Input');
         }
     }
+    handleBack = () => {
+        this.props.history.goBack();
+    }
 
     render() {
         let { isLoaded, fullname, email, message, subject, } = this.state;

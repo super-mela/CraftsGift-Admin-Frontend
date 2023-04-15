@@ -110,6 +110,20 @@ const isAuthenticate = (next) => {
   }
 };
 
+const getUserUpdatePassword = async (data) => {
+  try {
+    let result = await api.post(Apis.GetUserChangePasword, data);
+    if (result.data.error) {
+      NotificationManager.error(result.data.error);
+      return null;
+    }
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export default {
   getUserLogin,
   getAllUserList,
@@ -119,4 +133,5 @@ export default {
   getUserRegister,
   logout,
   isAuthenticate,
+  getUserUpdatePassword,
 };

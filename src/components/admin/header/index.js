@@ -44,7 +44,7 @@ export default class Header extends Component {
                 </a>
                 <a
                   className="dropdown-item admin-dropdown-item"
-                  href="change_password.html"
+                  href="#/admin/profile/changepassword"
                 >
                   Change Password
                 </a>

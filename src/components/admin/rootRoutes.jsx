@@ -12,6 +12,7 @@ import Payment from './view/payment';
 import Offer from './view/offer';
 import CustomOrder from './view/customOrder';
 import Setting from './view/setting';
+import Profile from './view/profile';
 
 
 export default class rootRoutes extends Component {
@@ -33,6 +34,7 @@ export default class rootRoutes extends Component {
             <Route path={`${match.path}/user`} component={User} />
             <Route path={`${match.path}/payment`} component={Payment} />
             <Route path={`${match.path}/setting`} component={Setting} />
+            <Route path={`${match.path}/profile`} component={Profile} />
 
 
           </Switch>

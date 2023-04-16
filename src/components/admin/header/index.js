@@ -38,7 +38,7 @@ export default class Header extends Component {
               >
                 <a
                   className="dropdown-item admin-dropdown-item"
-                  href="edit_profile.html"
+                  href="#/admin/profile/edit"
                 >
                   Edit Profile
                 </a>

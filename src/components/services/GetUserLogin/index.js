@@ -124,6 +124,20 @@ const getUserUpdatePassword = async (data) => {
   }
 };
 
+const getUserByToken = async (data) => {
+  try {
+    let result = await api.get(Apis.GetUserByToken);
+    if (result.data.error) {
+      NotificationManager.error(result.data.error);
+      return null;
+    }
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export default {
   getUserLogin,
   getAllUserList,
@@ -134,4 +148,5 @@ export default {
   logout,
   isAuthenticate,
   getUserUpdatePassword,
+  getUserByToken,
 };

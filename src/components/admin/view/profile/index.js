@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import ChangePassword from './changepassword';
+import Edit from './edit';
 
 export default class Profile extends Component {
     render() {
@@ -10,8 +11,8 @@ export default class Profile extends Component {
                 <main>
                     <Switch>
                         <Route path={[`${match.path}/changepassword`]} component={ChangePassword} />
-                        {/* <Route path={[`${match.path}/create`]} component={Create} />
-                        <Route path={[`${match.path}/edit/:id`]} component={Edit} /> */}
+                        {/* <Route path={[`${match.path}/create`]} component={Create} /> */}
+                        <Route path={[`${match.path}/edit`]} component={Edit} />
                     </Switch>
                 </main>
             </div>

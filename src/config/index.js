@@ -12,7 +12,7 @@ const Apis = {
   GetUserUpdate: `${API_URL}/api/auth/user/update`,
   GetDeleteUserList: `${API_URL}/api/auth/user/delete`,
   GetUserChangePasword: `${API_URL}/api/auth/user/changepassword`,
-
+  GetUserByToken: `${API_URL}/api/auth/user/getUserByToken`,
 
   //Dashboard
   GetOrderByStatus: `${API_URL}/api/order/status`,

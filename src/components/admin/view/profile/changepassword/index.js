@@ -22,7 +22,7 @@ export default class ChangePassword extends Component {
         this.props.history.goBack();
     }
     handleSubmit = async () => {
-        this.setState({ isLoaded: true })
+        // this.setState({ isLoaded: true })
 
         const { password, confirmPassword } = this.state;
         // perform all neccassary validations

@@ -245,7 +245,7 @@ export default class AboutUs extends Component {
                             <div className="form-group pb-4">
 
                                 <input
-                                    accept="image/*"
+                                    accept="image/jpeg, image/png"
                                     type="file"
                                     className="form-control"
                                     name="image"
@@ -286,7 +286,7 @@ export default class AboutUs extends Component {
                         <div className="form-group pb-4">
 
                             <input
-                                accept="image/*"
+                                accept="image/jpeg, image/png"
                                 type="file"
                                 className="form-control"
                                 name="image"
@@ -315,13 +315,13 @@ export default class AboutUs extends Component {
                                 <input type="text" className="form-control" placeholder="Full Name" name="name" value={this.state.founder.name} onChange={(e) => this.handleFounder(e)} />
                                 <input type="text" className="form-control" placeholder="Profession" name="proffession" value={this.state.founder.proffession} onChange={(e) => this.handleFounder(e)} />
                                 <input
-                                    accept="image/*"
+                                    accept="image/jpeg, image/png"
                                     type="file"
                                     className="form-control"
                                     name="image"
                                     onChange={this.onFileChange}
                                 />
-                                <button className='btn' onClick={this.handleFounderMeta}>+</button>
+                                <button className='push-btn' onClick={this.handleFounderMeta}>+</button>
                             </div>
 
                             {this.state.founders.map((item, key) => (
@@ -346,7 +346,7 @@ export default class AboutUs extends Component {
                                     <label className="form-label py-2 mb-0 ml-2">{item.name}</label><br />
                                     <label className="form-label py-2 mb-0 ml-2">{item.proffession}</label>
                                     <div className='text-right'>
-                                        <button className='btn ' onClick={() => this.handleRemovesFounders(key)}>x</button>
+                                        <button className='remove-btn hover-btn' onClick={() => this.handleRemovesFounders(key)}>x</button>
                                     </div>
                                 </div>
                             ))}

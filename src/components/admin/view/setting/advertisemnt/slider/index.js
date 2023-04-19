@@ -136,7 +136,7 @@ export default class Slider extends Component {
                             </div>
                             <div className="form-group pb-4">
                                 <input
-                                    accept="image/*"
+                                    accept="image/jpeg, image/png"
                                     type="file"
                                     className="form-control"
                                     name="image"

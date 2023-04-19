@@ -101,7 +101,7 @@ export default class ShippingType extends Component {
                         <input type="text" className="form-control mb-2" placeholder="Shipping company" name="name" value={this.state.shipper.name} onChange={(e) => this.handleshipper(e)} />
                         <input type="text" className="form-control mb-2" placeholder="Discription" name="discription" value={this.state.shipper.discription} onChange={(e) => this.handleshipper(e)} />
                         <input type="number" className="form-control" placeholder="price" name="price" value={this.state.shipper.price} onChange={(e) => this.handleshipper(e)} />
-                        <button className='btn' onClick={this.handleshipperMeta}>+</button>
+                        <button className='push-btn' onClick={this.handleshipperMeta}>+</button>
                     </div>
                     {this.state.shippers.map((item, key) => (
                         <div className=' col-lg-6 col-md-6 col-sm-12 flex-column shadow-lg mb-2' key={key}>
@@ -109,7 +109,7 @@ export default class ShippingType extends Component {
                             <label className="form-label py-2 mb-0 ml-2">{item.discription}</label><br />
                             <label className="form-label py-2 mb-0 ml-2">${item.price}</label>
                             <div className='text-right'>
-                                <button className='btn ' onClick={() => this.handleRemovesshippers(key)}>x</button>
+                                <button className='remove-btn' onClick={() => this.handleRemovesshippers(key)}>x</button>
                             </div>
                         </div>
                     ))}

@@ -140,7 +140,7 @@ export default class CategoryAdvert extends Component {
                             <div className="form-group pb-4">
                                 <input
                                     key={1}
-                                    accept="image/*"
+                                    accept="image/jpeg, image/png"
                                     type="file"
                                     className="form-control"
                                     name="image"

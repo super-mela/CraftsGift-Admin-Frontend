@@ -272,13 +272,6 @@ export default class Home extends Component {
                             <th style={{ width: 50 }}>Invoice</th>
                             <th style={{ width: 130 }}>FirstName</th>
                             <th style={{ width: 130 }}>LastName </th>
-                            <th style={{ width: 130 }}>Email </th>
-                            <th style={{ width: 200 }}>Phone </th>
-                            <th style={{ width: 130 }}>Address</th>
-                            <th style={{ width: 130 }}>City</th>
-                            <th style={{ width: 130 }}>Country</th>
-                            <th style={{ width: 130 }}>Zip</th>
-                            <th style={{ width: 130 }}>Shipping Option</th>
                             <th style={{ width: 130 }}>Payment Method</th>
                             <th style={{ width: 130 }}>Amount</th>
                             <th style={{ width: 130 }}>Discount</th>
@@ -300,13 +293,6 @@ export default class Home extends Component {
                                 <td>{row.invoice}</td>
                                 <td>{row.firstname} </td>
                                 <td>{row.lastname} </td>
-                                <td>{row.email} </td>
-                                <td>{row.phone} </td>
-                                <td>{row.address} </td>
-                                <td>{row.city} </td>
-                                <td>{row.country} </td>
-                                <td>{row.zip} </td>
-                                <td>{row.shippingOption} </td>
                                 <td>{row.paymentMethod} </td>
                                 <td>{row.amount} </td>
                                 <td>{row.discount} </td>

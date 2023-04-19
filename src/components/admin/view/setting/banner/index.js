@@ -99,7 +99,7 @@ export default class BannerImage extends Component {
                         </span>
                         <div className="form-group pb-4">
                             <input
-                                accept="image/*"
+                                accept="image/jpeg, image/png"
                                 type="file"
                                 className="form-control"
                                 name="image"

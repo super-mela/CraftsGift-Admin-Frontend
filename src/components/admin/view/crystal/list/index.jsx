@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Button, Typography
 } from "@material-ui/core";
-import { GetProductDetails } from '../../../../services';
+import { GetCrystalDetails } from '../../../../services';
 import AutoSelect from "../../../../common/autoselect";
 import { API_URL } from '../../../../../config';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,7 @@ export default class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            getList: [], selectedProduct: '', isloaded: false, limit: 20,
+            getList: [], selectedCrystal: '', isloaded: false, limit: 20,
             offset: 0,
             perPage: 30,
             orgtableData: [],
@@ -44,11 +44,11 @@ export default class List extends Component {
             day = '0' + day;
         return [year, month, day].join('-');
     }
-    async getProductList() {
+    async getCrystalList() {
         this.setState({ isloaded: false })
-        let list = await GetProductDetails.getAllProductList();
+        let list = await GetCrystalDetails.getAllCrystalList();
         if (list) {
-            var tdata = list.product;
+            var tdata = list.crystal;
             var slice = tdata.slice(this.state.offset, this.state.offset + this.state.perPage)
             this.setState({
                 pageCount: Math.ceil(tdata.length / this.state.perPage),
@@ -59,22 +59,22 @@ export default class List extends Component {
         }
     }
     async componentDidMount() {
-        this.getProductList();
+        this.getCrystalList();
     }
-    handleSelectedProduct = async (name, selected) => {
+    handleSelectedCrystal = async (name, selected) => {
         if (name === "product_id") {
             this.setState({
                 list: {
                     ...this.state.list,
                     [name]: selected.value,
                 },
-                selectedProduct: selected,
+                selectedCrystal: selected,
             });
             this.setState({ changed: true });
         }
     }
     handleViewAll = () => {
-        this.getProductList()
+        this.getCrystalList()
     }
     async handlDeleteById(id) {
         swal({
@@ -86,9 +86,9 @@ export default class List extends Component {
         })
             .then(async (success) => {
                 if (success) {
-                    let value = await GetProductDetails.getDeleteProduct(id);
+                    let value = await GetCrystalDetails.getDeleteCrystal(id);
                     if (value) {
-                        this.getProductList();
+                        this.getCrystalList();
                     }
                 }
             });
@@ -96,7 +96,7 @@ export default class List extends Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         this.setState({ loading: false })
-        let list = await GetProductDetails.getProductById(this.state.selectedProduct.value);
+        let list = await GetCrystalDetails.getCrystalById(this.state.selectedCrystal.value);
         if (list) {
             this.setState({ getList: list.data, isloaded: true })
         }
@@ -128,7 +128,7 @@ export default class List extends Component {
     }
     //end pagination 
     render() {
-        const { getList, selectedProduct, isloaded } = this.state;
+        const { getList, selectedCrystal, isloaded } = this.state;
         return (
             <div className="container-fluid">
                 <div className="row">
@@ -154,8 +154,8 @@ export default class List extends Component {
                                 <br />
                                 <AutoSelect
                                     className="basic-single"
-                                    value={selectedProduct}
-                                    onChange={this.handleSelectedProduct}
+                                    value={selectedCrystal}
+                                    onChange={this.handleSelectedCrystal}
                                     isSearchable={true}
                                     name="product_id"
                                     options={Arrays(getList, "name", "_id")}
@@ -172,7 +172,7 @@ export default class List extends Component {
                     <div className="col-lg-12 col-md-12">
                         <div className="card card-static-2 mt-30 mb-30">
                             <div className="card-title-2">
-                                <h4>All Products</h4>
+                                <h4>All Crystals</h4>
                             </div>
                             <div className="card-body-table">
                                 <div className="table-responsive">
@@ -182,8 +182,6 @@ export default class List extends Component {
                                                 <th style={{ width: 60 }}>Id</th>
                                                 <th style={{ width: 100 }}>Image</th>
                                                 <th>Name</th>
-                                                <th>Category</th>
-                                                <th>SubCategory</th>
                                                 <th>Price</th>
                                                 <th>Net Size</th>
                                                 <th>Discount</th>
@@ -201,14 +199,12 @@ export default class List extends Component {
                                                         <td>
                                                             <div className="cate-img-5">
                                                                 {/* <img src={row.image} alt={row.name} /> */}
-                                                                <img src={API_URL + "/product/" + row.image} alt={row.name} />
+                                                                <img src={API_URL + "/crystal/" + row.image} alt={row.name} />
                                                             </div>
                                                         </td>
                                                         <td>{row.name}</td>
-                                                        <td>{row.category}</td>
-                                                        <td>{row.subCategory}</td>
                                                         <td>${row.price}</td>
-                                                        <td>${row.net}</td>
+                                                        <td>{row.net}</td>
                                                         <td>{row.discount}%</td>
                                                         <td>{row.purchases}</td>
                                                         <td>{row.tags.map((item, i) => (

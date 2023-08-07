@@ -14,8 +14,6 @@ export default class Sidebar extends Component {
                                 <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt" /></div>
                                 Dashboard
                             </a>
-
-
                             <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
                                 <div className="sb-nav-link-icon"><i className="fas fa-list" /></div>
                                 Categories
@@ -41,7 +39,7 @@ export default class Sidebar extends Component {
                             </div>
                             <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCrystals" aria-expanded="false" aria-controls="collapseCrystals">
                                 <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
-                                Cristal Templates
+                                Crystal Templates
                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
                             </a>
                             <div className="collapse" id="collapseCrystals" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">

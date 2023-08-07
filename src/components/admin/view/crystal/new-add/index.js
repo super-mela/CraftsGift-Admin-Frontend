@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
-import MainCategorylist from "../../../../common/category/main-category";
-import { GetCategoryDetails } from "../../../../services";
-import SubCategorylist from "../../../../common/category/sub-category";
+import { GetCrystalDetails } from '../../../../services'
 import { GetProductDetails } from "../../../../services";
 import Loader from "../../../../loader";
 import { NotificationManager } from "react-notifications";
@@ -11,9 +9,9 @@ export default class Newcrystal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      getList: [],
-      selectedCategory: "",
-      selectedSubCategory: "",
+      // getList: [],
+      // selectedCategory: "",
+      // selectedSubCategory: "",
       blockhide: true,
       toggle: false,
       isLoaded: false,
@@ -50,28 +48,27 @@ export default class Newcrystal extends Component {
     });
   };
 
-  handleCategory = async (value) => {
-    this.setState({ selectedCategory: value });
-    let category = value;
-    let list = await GetCategoryDetails.getSelectSubCategory(category);
-    this.setState({ getList: list.data.subCategories });
-  };
+  // handleCategory = async (value) => {
+  //   this.setState({ selectedCategory: value });
+  //   let category = value;
+  //   let list = await GetCategoryDetails.getSelectSubCategory(category);
+  //   this.setState({ getList: list.data.subCategories });
+  // };
 
-  handleSubCategory = async (value) => {
-    this.setState({ selectedSubCategory: value });
-    this.setState({ blockhide: true });
-  };
+  // handleSubCategory = async (value) => {
+  //   this.setState({ selectedSubCategory: value });
+  //   this.setState({ blockhide: true });
+  // };
 
-  handleChildCategory = async (value) => {
-    this.setState({ selectedChildCategory: value });
-  };
+  // handleChildCategory = async (value) => {
+  //   this.setState({ selectedChildCategory: value });
+  // };
 
   caculationTable = () => {
     let price = this.state.price;
     let discounts = this.state.discount;
     if (price > 0) {
       let discount = Math.round(price - (price * discounts / 100));
-      console.log(discount)
       this.setState({
         discountPrice: discount,
       });
@@ -103,8 +100,6 @@ export default class Newcrystal extends Component {
     event.preventDefault();
     this.setState({ isLoaded: true });
     const {
-      selectedCategory,
-      selectedSubCategory,
       image,
       name,
       discount,
@@ -114,11 +109,8 @@ export default class Newcrystal extends Component {
       desc,
       filename,
     } = this.state;
-    console.log(JSON.stringify(this.state.tags))
 
     const formData = new FormData();
-    formData.append("category", selectedCategory);
-    formData.append("subCategory", selectedSubCategory);
     formData.append("name", name);
     formData.append("discount", discount);
     formData.append("net", net);
@@ -140,7 +132,7 @@ export default class Newcrystal extends Component {
       dangerMode: true,
     }).then(async (success) => {
       if (success) {
-        let list = await GetProductDetails.addProductList(formData, config);
+        let list = await GetCrystalDetails.addCrystalList(formData, config);
         if (list) {
           this.setState({ isLoaded: false });
           this.props.history.push("/admin/crystal/list");
@@ -151,7 +143,7 @@ export default class Newcrystal extends Component {
     });
   };
   render() {
-    const { getList, isLoaded } = this.state;
+    const { isLoaded } = this.state;
     return (
       <div className="container-fluid">
         <div className="row">
@@ -225,7 +217,7 @@ export default class Newcrystal extends Component {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Product Name"
+                          placeholder="Crystal Name"
                           name="name"
                           value={this.state.name}
                           onChange={(e) => this.handleChange(e)}

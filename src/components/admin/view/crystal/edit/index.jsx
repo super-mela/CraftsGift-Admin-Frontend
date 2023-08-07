@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Button
 } from "@material-ui/core";
-import { GetProductDetails } from '../../../../services';
+import { GetCrystalDetails } from '../../../../services';
 import Loader from '../../../../loader';
 import { NotificationManager } from 'react-notifications';
 import swal from 'sweetalert';
@@ -12,8 +12,8 @@ export default class Edit extends Component {
         super(props);
         let self = this.props.location.state.row;
         this.state = {
-            getList: [], getsublist: [], selectedCategory: self.category, selectedSubCategory: self.subCategory, toggle: false, loading: false, blockHide: false,
-            productId: self._id, name: self.name, net: self.net, price: self.price, image: self.image, desc: self.desc, tags: self.tags, discount: self.discount,
+            getList: [], getsublist: [], toggle: false, loading: false, blockHide: false,
+            crystalId: self._id, name: self.name, net: self.net, price: self.price, image: self.image, desc: self.desc, tags: self.tags, discount: self.discount,
             filename: "", oldfilename: self.image, singleTag: "", preview: null,
         }
     }
@@ -24,7 +24,8 @@ export default class Edit extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     onFileChange = event => {
-        this.setState({ filename: this.state.oldfilename.split('/')[2].split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
+        console.log(this.state.oldfilename)
+        this.setState({ filename: this.state.oldfilename.split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
         this.setState({ image: event.target.files[0] });
         const objectUrl = URL.createObjectURL(event.target.files[0])
         this.setState({ preview: objectUrl })
@@ -68,9 +69,7 @@ export default class Edit extends Component {
         event.preventDefault();
         this.setState({ loading: true })
         const {
-            productId,
-            selectedCategory,
-            selectedSubCategory,
+            crystalId,
             image,
             name,
             discount,
@@ -80,15 +79,14 @@ export default class Edit extends Component {
             desc,
             filename,
         } = this.state;
+        console.log(typeof image)
         const formData = new FormData();
-        formData.append("productId", productId);
-        formData.append("category", selectedCategory);
-        formData.append("subCategory", selectedSubCategory);
+        formData.append("crystalId", crystalId);
         formData.append("name", name);
         formData.append("discount", discount);
         formData.append("net", net);
         formData.append("price", price);
-        formData.append("image", image, filename);
+        typeof image === 'string' ? formData.append("image", image) : formData.append("image", image, filename);
         formData.append("tags", JSON.stringify(tags));
         formData.append("desc", desc);
         formData.append("status", this.props.location.state.row.status);
@@ -106,7 +104,7 @@ export default class Edit extends Component {
         })
             .then(async (success) => {
                 if (success) {
-                    let list = await GetProductDetails.getUpdateProduct(formData, config);
+                    let list = await GetCrystalDetails.getUpdateCrystal(formData, config);
                     if (list) {
                         this.setState({ loading: false })
                         this.props.history.push("/admin/crystal/list")
@@ -205,7 +203,7 @@ export default class Edit extends Component {
                                                 <div className="form-group m-2">
                                                     <label className="form-label">old Image*</label>
                                                     <div className="cate-img-5">
-                                                        <img src={API_URL + "/product/" + this.state.oldfilename} alt="old" />
+                                                        <img src={API_URL + "/crystal/" + this.state.oldfilename} alt="old" />
                                                     </div>
                                                 </div>
 

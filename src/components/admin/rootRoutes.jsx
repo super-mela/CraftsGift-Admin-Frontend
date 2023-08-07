@@ -13,6 +13,7 @@ import Offer from './view/offer';
 import CustomOrder from './view/customOrder';
 import Setting from './view/setting';
 import Profile from './view/profile';
+import Crystal from './view/crystal';
 
 
 export default class rootRoutes extends Component {
@@ -26,6 +27,7 @@ export default class rootRoutes extends Component {
           <Switch>
             <Route exact path={[`${match.path}/home`, `${match.path}`]} component={Home} />
             <Route path={`${match.path}/product`} component={Product} />
+            <Route path={`${match.path}/crystal`} component={Crystal} />
             <Route path={`${match.path}/category`} component={Category} />
             <Route path={`${match.path}/order`} component={Order} />
             <Route path={`${match.path}/customorder`} component={CustomOrder} />

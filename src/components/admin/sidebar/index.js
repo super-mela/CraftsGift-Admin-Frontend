@@ -15,6 +15,18 @@ export default class Sidebar extends Component {
                                 Dashboard
                             </a>
 
+
+                            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
+                                <div className="sb-nav-link-icon"><i className="fas fa-list" /></div>
+                                Categories
+                                <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
+                            </a>
+                            <div className="collapse" id="collapseCategories" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                                <nav className="sb-sidenav-menu-nested nav">
+                                    <a className="nav-link sub_nav_link" href="#admin/category/list">All Categories</a>
+                                    <a className="nav-link sub_nav_link" href="#/admin/category/create">Add Category</a>
+                                </nav>
+                            </div>
                             <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
                                 <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
                                 Products
@@ -27,15 +39,16 @@ export default class Sidebar extends Component {
                                     <a className="nav-link sub_nav_link" href="#/admin/product/more-photo">Add More Image</a>
                                 </nav>
                             </div>
-                            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
-                                <div className="sb-nav-link-icon"><i className="fas fa-list" /></div>
-                                Categories
+                            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCrystals" aria-expanded="false" aria-controls="collapseCrystals">
+                                <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
+                                Cristal Templates
                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
                             </a>
-                            <div className="collapse" id="collapseCategories" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <div className="collapse" id="collapseCrystals" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav className="sb-sidenav-menu-nested nav">
-                                    <a className="nav-link sub_nav_link" href="#admin/category/list">All Categories</a>
-                                    <a className="nav-link sub_nav_link" href="#/admin/category/create">Add Category</a>
+                                    <a className="nav-link sub_nav_link" href="#/admin/crystal/list">All Crystals</a>
+                                    <a className="nav-link sub_nav_link" href="#/admin/crystal/create">Add Crystals</a>
+                                    <a className="nav-link sub_nav_link" href="#/admin/crystal/more-photo">Add More Image</a>
                                 </nav>
                             </div>
                             <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOffers" aria-expanded="false" aria-controls="collapseOffers">

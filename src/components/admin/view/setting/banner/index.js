@@ -52,7 +52,7 @@ export default class BannerImage extends Component {
                 if (success) {
                     let list = await GetSettingDetails.createBannerIamge(formData);
                     if (list) {
-                        NotificationManager.success("About Us Add/Update Successfuly", "About Us")
+                        NotificationManager.success("Banner image Add/Update Successfuly", "About Us")
                     }
                 }
             });

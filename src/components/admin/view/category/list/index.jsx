@@ -27,7 +27,8 @@ export default class List extends Component {
         return [year, month, day].join('-');
     }
     async getChildCategory() {
-        let list = await GetCategoryDetails.getCategoryList()
+        let list = await GetCategoryDetails.getCategoryList();
+
         this.setState({ getdata: list.data })
     }
     async componentDidMount() {

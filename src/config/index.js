@@ -2,7 +2,7 @@
 // const API_URL = "http://172.20.19.67:5000";
 const API_URL = document.domain === 'localhost'
   ? "http://localhost:5000"
-  : "https://backend.habeshagebeya.com";
+  : "https://gbackend.habeshagebeya.com";
 
 const Apis = {
   //Authentication api
@@ -66,6 +66,17 @@ const Apis = {
   GetProductById: `${API_URL}/api/product/getProductById`,
 
   GetProductPhotoDeleteById: `${API_URL}/api/product/aws/delete/photo`,
+
+  //crystal api
+  AddCrystalList: `${API_URL}/api/crystal/add`,
+  GetAllCrystalList: `${API_URL}/api/crystal/getAllCrystalList`,
+  GetAllCrystalPhoto: `${API_URL}/api/crystal/getAllPhoto`,
+  GetUpdateCrystal: `${API_URL}/api/crystal/update`,
+  GetUploadCrystalImage: `${API_URL}/api/crystal/upload-img`,
+  GetDeleteCrystal: `${API_URL}/api/crystal/delete`,
+  GetCrystalById: `${API_URL}/api/crystal/getProductById`,
+
+  GetCrystalPhotoDeleteById: `${API_URL}/api/crystal/aws/delete/photo`,
 
   //affiliate api
   GetUpdateAffiliate: `${API_URL}/api/product/updateaffiliate`,

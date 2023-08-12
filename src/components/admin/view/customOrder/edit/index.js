@@ -110,12 +110,105 @@ export default class Edit extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-7">
-                                                    <div className="order-total-dt text-display">
-                                                        <div className="order-total-left-text">
-                                                            Discription:
+                                                    <div className='text-display'>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Item Size:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.size}
+                                                            </div>
                                                         </div>
-                                                        <div className="order-total-justify-text">
-                                                            {"  "}  {self.description}
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Rush Item:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.rush}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                LED Base:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.LED}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Number of Text Line:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.line}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Texts:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.text}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Text Font:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.font}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Keychane:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.keychane}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                cleaning Kit:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.cleaningKit}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Background:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.background}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-lg-7" />
+                                                <div className="col-lg-5">
+                                                    <div className="order-total-dt mt-30">
+                                                        <div className="order-total-left-text">
+                                                            Custom Total
+                                                        </div>
+                                                        <div className="order-total-right-text">
+                                                            ${parseFloat(self.crystal.quantity) * (parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background))}
+                                                        </div>
+                                                    </div>
+                                                    <div className="order-total-dt">
+                                                        <div className="order-total-left-text">
+                                                            Delivery Fees
+                                                        </div>
+                                                        <div className="order-total-right-text">
+                                                            ${self.shippingCost}
+                                                        </div>
+                                                    </div>
+                                                    <div className="order-total-dt">
+                                                        <div className="order-total-left-text fsz-18">
+                                                            Total Amount
+                                                        </div>
+                                                        <div className="order-total-right-text fsz-18">
+                                                            ${parseFloat(parseFloat(self.shippingCost) + (parseFloat(self.crystal.quantity) * (parseFloat(self.crystal.price) + parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background)))).toFixed(2)}
                                                         </div>
                                                     </div>
                                                 </div>

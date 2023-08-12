@@ -1,5 +1,5 @@
 // const API_URL = "https://backend.habeshagebeya.com";
-// const API_URL = "http://172.20.19.67:5000";
+// const API_URL = "http://172.20.19.130:5000";
 const API_URL = document.domain === 'localhost'
   ? "http://localhost:5000"
   : "https://gbackend.habeshagebeya.com";

@@ -301,7 +301,7 @@ export default class Home extends Component {
                                   item.name + " "
                                 ))} </td>
                                 <td>
-                                  {row.status === "processing" ? (
+                                  {row.status === "pending" ? (
                                     <span className="badge-item badge-primary">
                                       {row.status}
                                     </span>

@@ -86,7 +86,7 @@ export default class List extends Component {
                 this.setState({ getList: list.order, isloaded: false });
             }
             else {
-                NotificationManager.error(list.msg, "Custom Order");
+                NotificationManager.error(list.msg, "Crystal Order");
                 this.setState({ isloaded: false });
             }
         }
@@ -103,7 +103,7 @@ export default class List extends Component {
                 this.setState({ getList: list.order, isloaded: false });
             }
             else {
-                NotificationManager.error(list.msg, "Custom Order");
+                NotificationManager.error(list.msg, "Crystal Order");
                 this.setState({ isloaded: false });
             }
         }
@@ -120,10 +120,10 @@ export default class List extends Component {
                 <main>
                     <div className="container-fluid">
                         {isloaded ? <Loader /> : ""}
-                        <h2 className="mt-30 page-title">Custom Order</h2>
+                        <h2 className="mt-30 page-title">Crystal Order</h2>
                         <ol className="breadcrumb mb-30">
                             <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
-                            <li className="breadcrumb-item active">Custom Order</li>
+                            <li className="breadcrumb-item active">Crystal Order</li>
                         </ol>
                         <div className="row">
                             <div className="col-xl-3 col-md-6">
@@ -186,7 +186,7 @@ export default class List extends Component {
                                                     className="card-count"
                                                     key={index}
                                                     style={
-                                                        row.status === "Pending"
+                                                        row.status === "pending"
                                                             ? { display: "block" }
                                                             : { display: "none" }
                                                     }
@@ -250,7 +250,7 @@ export default class List extends Component {
                                                         onChange={(e) => this.handleChangeStatus(e)}
                                                     >
                                                         <option selected disabled>Select Status</option>
-                                                        <option value="Pending">Processing</option>
+                                                        <option value="pending">Processing</option>
                                                         <option value="shipping">Shipping</option>
                                                         <option value="delieverd">Delivered</option>
                                                         <option value="cancel">Cancel</option>
@@ -261,7 +261,7 @@ export default class List extends Component {
                                         </div>
                                     </div>
                                     <div className="card-title-2">
-                                        <h4>Recent Custom Orders</h4>
+                                        <h4>Recent Crystal Orders</h4>
                                         <button onClick={() => this.getOrderList()} className="view-btn hover-btn">View All</button>
                                     </div>
                                     <div className="card-body-table">
@@ -270,10 +270,13 @@ export default class List extends Component {
                                                 <thead>
                                                     <tr>
                                                         <th style={{ width: 50 }}>ID</th>
-                                                        <th style={{ width: 50 }}>Order ID</th>
-                                                        <th style={{ width: 130 }}>FirstName</th>
-                                                        <th style={{ width: 130 }}>LastName </th>
-                                                        <th style={{ width: 200 }}>Status</th>
+                                                        <th style={{ width: 50 }}>Invoice</th>
+                                                        <th style={{ width: 130 }}>Full Name</th>
+                                                        <th style={{ width: 130 }}>Payment Method</th>
+                                                        <th style={{ width: 130 }}>Quantity</th>
+                                                        <th style={{ width: 130 }}>Shipping Cost</th>
+                                                        <th style={{ width: 130 }}>Crystals</th>
+                                                        <th style={{ width: 130 }}>Status</th>
                                                         <th style={{ width: 200 }}>Date</th>
                                                         <th style={{ width: 200 }}>Delivery Date</th>
                                                         <th style={{ width: 100 }}>Action</th>
@@ -286,11 +289,14 @@ export default class List extends Component {
                                                         getList.map((row, index) => (
                                                             <tr key={index}>
                                                                 <td>{index + 1}</td>
-                                                                <td>{row.orderId}</td>
-                                                                <td>{row.firstname} </td>
-                                                                <td>{row.lastname} </td>
+                                                                <td>{row.invoice}</td>
+                                                                <td>{row.firstname + " " + row.lastname} </td>
+                                                                <td>{row.paymentMethod} </td>
+                                                                <td>{row.crystal.quantity} </td>
+                                                                <td>{row.shippingCost} </td>
+                                                                <td>{row.crystal.name} </td>
                                                                 <td>
-                                                                    {row.status === "Pending" ? (
+                                                                    {row.status === "pending" ? (
                                                                         <span className="badge-item badge-primary">
                                                                             {row.status}
                                                                         </span>

@@ -62,7 +62,7 @@ export default class Sidebar extends Component {
                             </div>
                             <a className="nav-link" href="#/admin/customorder/list">
                                 <div className="sb-nav-link-icon"><i className="fas fa-cart-arrow-down" /></div>
-                                Orders
+                                Crystal Orders
                             </a>
                             <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSetting" aria-expanded="false" aria-controls="collapseSetting">
                                 <div className="sb-nav-link-icon"><i className="fa fa-cog" /></div>

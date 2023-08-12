@@ -56,22 +56,156 @@ export default class View extends Component {
                                                     </div>
 
                                                 </div>
+                                                <div className="col-lg-12">
+                                                    <div className="card card-static-2 mb-30 mt-30">
+                                                        <div className="card-title-2">
+                                                            <h4>Crystal Orders</h4>
+                                                        </div>
+                                                        <div className="card-body-table">
+                                                            <div className="table-responsive">
+                                                                <table className="table ucp-table table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style={{ width: 130 }}>#</th>
+                                                                            {/* <th>Image</th> */}
+                                                                            <th>Item</th>
+                                                                            <th style={{ width: 150 }} className="text-center">Price</th>
+                                                                            <th style={{ width: 150 }} className="text-center">Qty</th>
+                                                                            <th style={{ width: 100 }} className="text-center">Total</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {/* {self.Addresses.map((prop) => {
+                                                                            return ( */}
+
+                                                                        <tr >
+                                                                            <td>{self.crystal.productId}</td>
+                                                                            {/* <td >
+                                                                                            <img src={p.photo} alt="cartimage" style={{ height: '50px' }} />
+                                                                                        </td> */}
+                                                                            <td>
+                                                                                {self.crystal.name}
+                                                                            </td>
+                                                                            <td className="text-center">${self.crystal.price}</td>
+                                                                            <td className="text-center">{self.crystal.quantity}</td>
+                                                                            <td className="text-center">${parseFloat(self.crystal.price) * parseFloat(self.crystal.quantity)}</td>
+                                                                        </tr>
+
+                                                                        {/* );
+                                                                        })} */}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div className="col-lg-5" >
                                                     <div >
                                                         <img className='image-card' src={API_URL + "/customorder/" + self.image} alt="Custom order" />
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-7">
-                                                    <div className="order-total-dt text-display">
-                                                        <div className="order-total-left-text">
-                                                            Discription:
+                                                    <div className='text-display'>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Item Size:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.size}
+                                                            </div>
                                                         </div>
-                                                        <div className="order-total-justify-text">
-                                                            {"  "}  {self.description}
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Rush Item:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.rush}
+                                                            </div>
                                                         </div>
-
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                LED Base:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.LED}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Number of Text Line:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.line}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Texts:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.text}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Text Font:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.font}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Keychane:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.keychane}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                cleaning Kit:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.cleaningKit}
+                                                            </div>
+                                                        </div>
+                                                        <div className="order-total-dt ">
+                                                            <div className="order-total-left-text">
+                                                                Background:
+                                                            </div>
+                                                            <div className="order-total-justify-text">
+                                                                {"  "}  {self.custom.background}
+                                                            </div>
+                                                        </div>
                                                     </div>
-
+                                                </div>
+                                                <div className="col-lg-7" />
+                                                <div className="col-lg-5">
+                                                    <div className="order-total-dt mt-30">
+                                                        <div className="order-total-left-text">
+                                                            Custom Total
+                                                        </div>
+                                                        <div className="order-total-right-text">
+                                                            ${parseFloat(self.crystal.quantity) * (parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background))}
+                                                        </div>
+                                                    </div>
+                                                    <div className="order-total-dt">
+                                                        <div className="order-total-left-text">
+                                                            Delivery Fees
+                                                        </div>
+                                                        <div className="order-total-right-text">
+                                                            ${self.shippingCost}
+                                                        </div>
+                                                    </div>
+                                                    <div className="order-total-dt">
+                                                        <div className="order-total-left-text fsz-18">
+                                                            Total Amount
+                                                        </div>
+                                                        <div className="order-total-right-text fsz-18">
+                                                            ${parseFloat(parseFloat(self.shippingCost) + (parseFloat(self.crystal.quantity) * (parseFloat(self.crystal.price) + parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background)))).toFixed(2)}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div className="col-lg-7" />
                                                 <div className="col-lg-5">

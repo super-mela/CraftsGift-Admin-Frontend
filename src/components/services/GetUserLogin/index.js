@@ -106,7 +106,7 @@ const isAuthenticate = (next) => {
   if (getCookie("token")) {
     return JSON.stringify(getCookie("token"));
   } else {
-    false;
+    return false;
   }
 };
 

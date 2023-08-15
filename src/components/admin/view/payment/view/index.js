@@ -5,7 +5,7 @@ import {
 import { GetPaymentDetails } from '../../../../services';
 import { NotificationManager } from 'react-notifications';
 import Loader from '../../../../loader';
-import swal from 'sweetalert';
+
 export default class View extends Component {
     constructor(props) {
         super(props);

@@ -89,7 +89,7 @@ export default class BannerImage extends Component {
                                     style={{ display: "block", maxWidth: '100%', width: "initial", height: "initial", background: "none", opacity: 1, border: '0px', margin: '0px', padding: '0px' }} />
                             </span>
                             <img
-                                alt="Banner Image"
+                                alt="Banner"
                                 src={this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/bannerimage/" + this.state.bannerfilename}
                                 decoding="async"
                                 data-nimg="intrinsic"

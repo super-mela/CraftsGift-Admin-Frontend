@@ -62,7 +62,7 @@ export default class CategoryAdvert extends Component {
     handleSubmit = async event => {
         event.preventDefault();
         const { catadverts } = this.state
-        if (catadverts.length != 3) {
+        if (catadverts.length !== 3) {
             NotificationManager.error(`please add additional ${3 - catadverts.length} Category Advertisment`, "Category Advert")
         }
         else {

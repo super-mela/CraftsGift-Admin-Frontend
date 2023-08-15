@@ -5,7 +5,6 @@ import {
 import { GetSettingDetails } from '../../../../services';
 import swal from 'sweetalert';
 import { NotificationManager } from 'react-notifications';
-import { API_URL } from '../../../../../config';
 
 export default class ShippingType extends Component {
     constructor(props) {

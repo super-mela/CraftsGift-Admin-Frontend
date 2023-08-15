@@ -129,6 +129,9 @@ const Apis = {
   CreateAdvertBanner: `${API_URL}/api/setting/advertbanner/create`,
   GetAdvertBanner: `${API_URL}/api/setting/advertbanner/list`,
 
+  //setting Crystal Customization Option
+  CreateCrystalOption: `${API_URL}/api/setting/crystalOption/create`,
+  GetCrystalOption: `${API_URL}/api/setting/crystalOption/list`,
 
   //payment list
   GetAllPaymentList: `${API_URL}/api/payment/getAllPayment`,

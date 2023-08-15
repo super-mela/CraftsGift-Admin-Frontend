@@ -39,7 +39,7 @@ export default class Edit extends Component {
 
         // perform all neccassary validations
 
-        let { _id, email, firstName, lastName, address, phoneNo, status, role } = this.state;
+        let { _id, email, firstName, lastName, address, phoneNo } = this.state;
         let data = { _id: _id, firstName: firstName, lastName, address: address, phoneNo: phoneNo, email: email }
         // make API call
         let user = await GetUserLogin.getUserUpdate(data);

@@ -359,6 +359,14 @@ input[type=radio] {
     background: #fff;
 }
 
+.card-static-3 {
+    border: 1px solid #efefef !important;
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px 15px;
+    margin-top: 15px;
+}
+
 .card-title-2 {
     display: flex;
     align-items: center;

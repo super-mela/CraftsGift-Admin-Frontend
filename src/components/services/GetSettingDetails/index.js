@@ -238,6 +238,36 @@ const getAdvertBanner = async () => {
     }
 };
 
+///////////////////////Crystal Customization Options//////////////////////
+
+const createCrystalCustomOption = async (data) => {
+    try {
+        let result = await api.post(Apis.CreateCrystalOption, data);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+const getCrystalCustomOption = async () => {
+    try {
+        let result = await api.get(Apis.GetCrystalOption);
+        if (result.data.error) {
+            NotificationManager.error(result.data.error);
+            return null;
+        }
+        return result.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 export default {
     createAboutUs,
     getAboutUs,
@@ -255,4 +285,6 @@ export default {
     getUpdateCatAdvert,
     createAdvertBanner,
     getAdvertBanner,
+    createCrystalCustomOption,
+    getCrystalCustomOption
 };

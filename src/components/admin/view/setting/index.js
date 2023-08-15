@@ -6,6 +6,7 @@ import ShippingType from './shipping';
 import CategoryAdvert from './advertisemnt/category';
 import Slider from './advertisemnt/slider';
 import AdvertBanner from './advertisemnt/banner';
+import CrystalCustomize from './crystalCustom';
 
 export default class Setting extends Component {
     render() {
@@ -21,6 +22,7 @@ export default class Setting extends Component {
                         <Route path={[`${match.path}/categoryadvert`]} component={CategoryAdvert} />
                         <Route path={[`${match.path}/slider`]} component={Slider} />
                         <Route path={[`${match.path}/advertbanner`]} component={AdvertBanner} />
+                        <Route path={[`${match.path}/crystalCustom`]} component={CrystalCustomize} />
                     </Switch>
                     {/* </HashRouter> */}
                 </main>

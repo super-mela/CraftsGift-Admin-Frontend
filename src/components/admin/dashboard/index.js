@@ -4,7 +4,6 @@ import Moment from "react-moment";
 import Loader from "../../loader";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { NotificationManager } from "react-notifications";
 
 export default class Home extends Component {

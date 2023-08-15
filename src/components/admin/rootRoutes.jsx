@@ -15,7 +15,6 @@ import Setting from './view/setting';
 import Profile from './view/profile';
 import Crystal from './view/crystal';
 
-
 export default class rootRoutes extends Component {
   render() {
     const { match } = this.props;

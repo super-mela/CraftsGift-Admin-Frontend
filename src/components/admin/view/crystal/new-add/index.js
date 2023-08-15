@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 import { GetCrystalDetails } from '../../../../services'
-import { GetProductDetails } from "../../../../services";
 import Loader from "../../../../loader";
 import { NotificationManager } from "react-notifications";
 import swal from "sweetalert";
@@ -9,9 +8,6 @@ export default class Newcrystal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // getList: [],
-      // selectedCategory: "",
-      // selectedSubCategory: "",
       blockhide: true,
       toggle: false,
       isLoaded: false,
@@ -47,22 +43,6 @@ export default class Newcrystal extends Component {
       content: contentHtml,
     });
   };
-
-  // handleCategory = async (value) => {
-  //   this.setState({ selectedCategory: value });
-  //   let category = value;
-  //   let list = await GetCategoryDetails.getSelectSubCategory(category);
-  //   this.setState({ getList: list.data.subCategories });
-  // };
-
-  // handleSubCategory = async (value) => {
-  //   this.setState({ selectedSubCategory: value });
-  //   this.setState({ blockhide: true });
-  // };
-
-  // handleChildCategory = async (value) => {
-  //   this.setState({ selectedChildCategory: value });
-  // };
 
   caculationTable = () => {
     let price = this.state.price;
@@ -165,37 +145,6 @@ export default class Newcrystal extends Component {
           </li>
           <li className="breadcrumb-item active">Add Crystal</li>
         </ol>
-
-        {/* <div className="row">
-          <div className="col-lg-6 col-md-6">
-            <div className="card card-static-2 mb-30">
-              <div className="card-body-table">
-                <div className="news-content-right pd-20">
-                  <div className="form-group">
-                    <label className="form-label">Category*</label>
-                    <MainCategorylist onSelectCategory={this.handleCategory} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6">
-            <div className="card card-static-2 mb-30">
-              <div className="card-body-table">
-                <div className="news-content-right pd-20">
-                  <div className="form-group">
-                    <label className="form-label">Sub Category*</label>
-                    <SubCategorylist
-                      state={getList}
-                      onSelectSubCategory={this.handleSubCategory}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
         <div
           className="row"
           style={

@@ -73,12 +73,13 @@ export default class CrystalCustomize extends Component {
     }
     getCrystalOption = async () => {
         let list = await GetSettingDetails.getCrystalCustomOption();
-        const aboutus = list.aboutus
-        this.setState({ ...this.state, ...aboutus })
+        const crystalOption = list.options
+        console.log(crystalOption)
+        this.setState({ ...this.state, ...crystalOption })
     }
-    // async componentDidMount() {
-    //     this.getCrystalOption();
-    // }
+    async componentDidMount() {
+        this.getCrystalOption();
+    }
     handleChangeMeta = async (parent, child) => {
         this.setState({ [parent]: [...this.state[parent], this.state[child]] })
         this.setState({ [child]: { id: Math.random(1000), text: "", price: 0 } })
@@ -96,12 +97,12 @@ export default class CrystalCustomize extends Component {
         event.preventDefault();
         const { sizes, LEDs, rushs, fonts, keychains, lines, cleaingKit, background } = this.state
         const data = {
-            size: sizes,
-            LED: LEDs,
-            rush: rushs,
-            font: fonts,
-            keychain: keychains,
-            line: lines,
+            sizes: sizes,
+            LEDs: LEDs,
+            rushs: rushs,
+            fonts: fonts,
+            keychains: keychains,
+            lines: lines,
             cleaingKit: cleaingKit,
             background: background
         }
@@ -116,7 +117,7 @@ export default class CrystalCustomize extends Component {
                 if (success) {
                     let list = await GetSettingDetails.createCrystalCustomOption(data);
                     if (list) {
-                        NotificationManager.success("About Us Add/Update Successfuly", "About Us")
+                        NotificationManager.success("Crystal Custom Option Add/Update Successfuly", "Crystal Custom Option")
                     }
                 }
             });
@@ -158,8 +159,8 @@ export default class CrystalCustomize extends Component {
                                 {this.state.sizes.length ? <hr /> : null}
                                 {this.state.sizes.map((item, i) => (
                                     <div key={item.id} className='bg-light p-2 rounded'>
-                                        <input type="text" className="form-control" placeholder="Text" name="text" value={item.text} onChange={(e) => this.handleChange(e)} />
-                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} onChange={(e) => this.handleChange(e)} />
+                                        <input type="text" className="form-control" placeholder="Text" name="text" value={item.text} />
+                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} />
 
                                         <div className='text-right'>
                                             <button className='remove-btn mt-0 hover-btn' onClick={() => this.handleRemove('sizes', 'size', i)}>x</button>
@@ -182,8 +183,8 @@ export default class CrystalCustomize extends Component {
                                 {this.state.rushs.length ? <hr /> : null}
                                 {this.state.rushs.map((item, i) => (
                                     <div key={item.id} className='bg-light p-2 rounded'>
-                                        <input type="text" className="form-control" placeholder="Title" name="title" value={item.text} onChange={(e) => this.handleChange(e)} />
-                                        <input type="text" className="form-control" placeholder="Title" name="title" value={item.price} onChange={(e) => this.handleChange(e)} />
+                                        <input type="text" className="form-control" placeholder="Title" name="title" value={item.text} />
+                                        <input type="text" className="form-control" placeholder="Title" name="title" value={item.price} />
 
                                         <div className='text-right'>
                                             <button className='remove-btn mt-0 hover-btn' onClick={() => this.handleRemove('rushs', 'rush', i)}>x</button>
@@ -206,8 +207,8 @@ export default class CrystalCustomize extends Component {
                                 {this.state.LEDs.length ? <hr /> : null}
                                 {this.state.LEDs.map((item, i) => (
                                     <div key={item.id} className='bg-light p-2 rounded'>
-                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} onChange={(e) => this.handleChange(e)} />
-                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} onChange={(e) => this.handleChange(e)} />
+                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} />
+                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} />
                                         <div className='text-right'>
                                             <button className='remove-btn mt-0 hover-btn' onClick={() => this.handleRemove("LEDs", "LED", i)}>x</button>
                                         </div>
@@ -230,8 +231,8 @@ export default class CrystalCustomize extends Component {
                                 {this.state.lines.length ? <hr /> : null}
                                 {this.state.lines.map((item, i) => (
                                     <div key={item.id} className='bg-light p-2 rounded'>
-                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} onChange={(e) => this.handleChange(e)} />
-                                        <input type="number" className="form-control" placeholder="price" name="price" value={item.price} onChange={(e) => this.handleChange(e)} />
+                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} />
+                                        <input type="number" className="form-control" placeholder="price" name="price" value={item.price} />
                                         <div className='text-right'>
                                             <button className='remove-btn mt-0 hover-btn' onClick={(() => this.handleRemove("lines", "line", i))}>x</button>
                                         </div>
@@ -252,8 +253,8 @@ export default class CrystalCustomize extends Component {
                                 {this.state.fonts.length ? <hr /> : null}
                                 {this.state.fonts.map((item, i) => (
                                     <div key={item.id} className='bg-light p-2 rounded'>
-                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} onChange={(e) => this.handleChange(e)} />
-                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} onChange={(e) => this.handleChange(e)} />
+                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} />
+                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} />
                                         <div className='text-right'>
                                             <button className='remove-btn mt-0 hover-btn' onClick={() => this.handleRemove('fonts', 'font', i)}>x</button>
                                         </div>
@@ -275,10 +276,10 @@ export default class CrystalCustomize extends Component {
                                 {this.state.keychains.length ? <hr /> : null}
                                 {this.state.keychains.map((item, i) => (
                                     <div key={item.id} className='bg-light p-2 rounded'>
-                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} onChange={(e) => this.handleChange(e)} />
-                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} onChange={(e) => this.handleChange(e)} />
+                                        <input type="text" className="form-control" placeholder="Caption" name="text" value={item.text} />
+                                        <input type="number" className="form-control" placeholder="Price" name="price" value={item.price} />
                                         <div className='text-right'>
-                                            <button className='remove-btn mt-0 hover-btn' >x</button>
+                                            <button className='remove-btn mt-0 hover-btn' onClick={() => this.handleRemove("keychains", "keychain", i)}>x</button>
                                         </div>
                                     </div>
                                 ))}

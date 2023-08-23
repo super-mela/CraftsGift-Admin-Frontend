@@ -227,7 +227,7 @@ export default class Edit extends Component {
                                                         </div>
                                                         <div className="order-total-dt">
                                                             <div className="order-total-right-text">
-                                                                <button className="status-btn hover-btn" type="submit" onClick={this.handleEmail}>Send Email</button>
+                                                                <button className="status-btn hover-btn" type="button" onClick={this.handleEmail}>Send Email</button>
                                                             </div>
                                                         </div>
                                                     </div>

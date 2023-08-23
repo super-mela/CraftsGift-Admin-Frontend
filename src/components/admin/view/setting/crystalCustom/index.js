@@ -82,13 +82,13 @@ export default class CrystalCustomize extends Component {
     }
     handleChangeMeta = async (parent, child) => {
         this.setState({ [parent]: [...this.state[parent], this.state[child]] })
-        this.setState({ [child]: { id: Math.random(1000), text: "", price: 0 } })
+        this.setState({ [child]: { id: parseInt(Math.random() * 10000, 10), text: "", price: 0 } })
     }
     handleRemove = async (parent, child, index) => {
         const remove = this.state[parent][index]
         this.state.remove = remove
         this.state[parent].splice(index, 1)
-        this.setState({ [child]: { id: Math.random(1000), text: "", price: 0 } })
+        this.setState({ [child]: { id: parseInt(Math.random() * 10000, 10), text: "", price: 0 } })
     }
     handleChange = (name, e) => {
         this.setState({ ...this.state, [name]: { ...this.state[name], [e.target.name]: e.target.value } })

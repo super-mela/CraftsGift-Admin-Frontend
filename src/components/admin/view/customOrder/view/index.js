@@ -4,14 +4,19 @@ import {
 } from "@material-ui/core";
 import Moment from 'react-moment';
 import { API_URL } from '../../../../../config';
+import { saveAs } from 'file-saver'
 
 export default class View extends Component {
     handleBack() {
         this.props.history.goBack();
     }
+    handleDownload(url) {
+        const imageUrl = API_URL + "/customorder/" + url
+        saveAs(imageUrl, url)
+    }
+
     render() {
         let self = this.props.location.state
-        console.log(self)
         return (
             <div>
                 <main>
@@ -111,7 +116,7 @@ export default class View extends Component {
                                                                 Item Size:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.size}
+                                                                {"  "}  {self.optionCaption.size}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -119,7 +124,7 @@ export default class View extends Component {
                                                                 Rush Item:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.rush}
+                                                                {"  "}  {self.optionCaption.rush}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -127,7 +132,7 @@ export default class View extends Component {
                                                                 LED Base:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.LED}
+                                                                {"  "}  {self.optionCaption.LED}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -135,7 +140,7 @@ export default class View extends Component {
                                                                 Number of Text Line:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.line}
+                                                                {"  "}  {self.optionCaption.line}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -143,7 +148,7 @@ export default class View extends Component {
                                                                 Texts:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.text}
+                                                                {"  "}  {self.optionCaption.text}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -151,7 +156,7 @@ export default class View extends Component {
                                                                 Text Font:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.font}
+                                                                {"  "}  {self.optionCaption.font}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -159,7 +164,7 @@ export default class View extends Component {
                                                                 Keychane:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.keychane}
+                                                                {"  "}  {self.optionCaption.keychane}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -167,7 +172,7 @@ export default class View extends Component {
                                                                 cleaning Kit:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.cleaningKit}
+                                                                {"  "}  {self.optionCaption.cleaningKit}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -175,19 +180,21 @@ export default class View extends Component {
                                                                 Background:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.background}
+                                                                {"  "}  {self.optionCaption.background}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-lg-7" />
+                                                <div className="col-lg-7" >
+                                                    <button className="status-btn hover-btn mt-3" onClick={() => this.handleDownload(self.image)}>Download</button>
+                                                </div>
                                                 <div className="col-lg-5">
                                                     <div className="order-total-dt mt-30">
                                                         <div className="order-total-left-text">
                                                             Custom Total
                                                         </div>
                                                         <div className="order-total-right-text">
-                                                            ${parseFloat(self.crystal.quantity) * (parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background))}
+                                                            ${parseFloat(parseFloat(self.crystal.quantity) * (parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background))).toFixed(2)}
                                                         </div>
                                                     </div>
                                                     <div className="order-total-dt">
@@ -225,7 +232,7 @@ export default class View extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                : 'Loading'}
+                                : 'Loading...'}
                         </div>
                     </div>
                 </main>

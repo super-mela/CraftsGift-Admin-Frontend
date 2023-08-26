@@ -24,7 +24,6 @@ export default class Edit extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
     onFileChange = event => {
-        console.log(this.state.oldfilename)
         this.setState({ filename: this.state.oldfilename.split(".")[0] + "." + event.target.files[0].type.split("/")[1] });
         this.setState({ image: event.target.files[0] });
         const objectUrl = URL.createObjectURL(event.target.files[0])

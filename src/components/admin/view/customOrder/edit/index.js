@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {
-    Button
-} from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { saveAs } from 'file-saver'
 import { GetCustomOrderDetails } from '../../../../services';
 import { NotificationManager } from 'react-notifications';
 import Moment from 'react-moment';
@@ -58,7 +57,10 @@ export default class Edit extends Component {
         }
 
     }
-
+    handleDownload(url) {
+        const imageUrl = API_URL + "/customorder/" + url
+        saveAs(imageUrl, url)
+    }
     render() {
         let self = this.props.location.state.row;
         return (
@@ -104,6 +106,38 @@ export default class Edit extends Component {
                                                         <br />
                                                     </div>
                                                 </div>
+                                                <div className="col-lg-12">
+                                                    <div className="card card-static-2 mb-30 mt-30">
+                                                        <div className="card-title-2">
+                                                            <h4>Crystal Orders</h4>
+                                                        </div>
+                                                        <div className="card-body-table">
+                                                            <div className="table-responsive">
+                                                                <table className="table ucp-table table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style={{ width: 130 }}>#</th>
+                                                                            {/* <th>Image</th> */}
+                                                                            <th>Item</th>
+                                                                            <th style={{ width: 150 }} className="text-center">Price</th>
+                                                                            <th style={{ width: 150 }} className="text-center">Qty</th>
+                                                                            <th style={{ width: 100 }} className="text-center">Total</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr >
+                                                                            <td>{self.crystal.productId}</td>
+                                                                            <td>              {self.crystal.name}                                                                    </td>
+                                                                            <td className="text-center">${self.crystal.price}</td>
+                                                                            <td className="text-center">{self.crystal.quantity}</td>
+                                                                            <td className="text-center">${parseFloat(self.crystal.price) * parseFloat(self.crystal.quantity)}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div className="col-lg-5" >
                                                     <div >
                                                         <img className='image-card' src={API_URL + "/customorder/" + self.image} alt="Custom order" />
@@ -116,7 +150,7 @@ export default class Edit extends Component {
                                                                 Item Size:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.size}
+                                                                {"  "}  {self.optionCaption.size}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -124,7 +158,7 @@ export default class Edit extends Component {
                                                                 Rush Item:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.rush}
+                                                                {"  "}  {self.optionCaption.rush}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -132,7 +166,7 @@ export default class Edit extends Component {
                                                                 LED Base:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.LED}
+                                                                {"  "}  {self.optionCaption.LED}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -140,7 +174,7 @@ export default class Edit extends Component {
                                                                 Number of Text Line:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.line}
+                                                                {"  "}  {self.optionCaption.line}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -148,7 +182,7 @@ export default class Edit extends Component {
                                                                 Texts:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.text}
+                                                                {"  "}  {self.optionCaption.text}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -156,7 +190,7 @@ export default class Edit extends Component {
                                                                 Text Font:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.font}
+                                                                {"  "}  {self.optionCaption.font}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -164,7 +198,7 @@ export default class Edit extends Component {
                                                                 Keychane:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.keychane}
+                                                                {"  "}  {self.optionCaption.keychane}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -172,7 +206,7 @@ export default class Edit extends Component {
                                                                 cleaning Kit:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.cleaningKit}
+                                                                {"  "}  {self.optionCaption.cleaningKit}
                                                             </div>
                                                         </div>
                                                         <div className="order-total-dt ">
@@ -180,19 +214,21 @@ export default class Edit extends Component {
                                                                 Background:
                                                             </div>
                                                             <div className="order-total-justify-text">
-                                                                {"  "}  {self.custom.background}
+                                                                {"  "}  {self.optionCaption.background}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-lg-7" />
+                                                <div className="col-lg-7" >
+                                                    <button className="status-btn hover-btn mt-3" onClick={() => this.handleDownload(self.image)}>Download</button>
+                                                </div>
                                                 <div className="col-lg-5">
                                                     <div className="order-total-dt mt-30">
                                                         <div className="order-total-left-text">
                                                             Custom Total
                                                         </div>
                                                         <div className="order-total-right-text">
-                                                            ${parseFloat(self.crystal.quantity) * (parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background))}
+                                                            ${parseFloat(parseFloat(self.crystal.quantity) * (parseFloat(self.custom.size) + parseFloat(self.custom.rush) + parseFloat(self.custom.LED) + parseFloat(self.custom.line) + parseFloat(self.custom.keychane) + parseFloat(self.custom.cleaningKit) + parseFloat(self.custom.background))).toFixed(2)}
                                                         </div>
                                                     </div>
                                                     <div className="order-total-dt">

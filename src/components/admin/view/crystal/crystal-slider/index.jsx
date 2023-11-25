@@ -296,7 +296,7 @@ export default class Uploadphoto extends Component {
                                                                     <tbody>
                                                                         {row.productphotos.map((data, index) => (
                                                                             <tr key={index}>
-                                                                                <td><img src={API_URL + "/multiImages/" + data.imgUrl} alt="product-name" height="65px" /></td>
+                                                                                <td><img src={API_URL + "/api/multiImages/" + data.imgUrl} alt="product-name" height="65px" /></td>
                                                                                 <td>
                                                                                     <span className="delete-btn" style={{ cursor: 'pointer' }} onClick={(e) => this.handlDeleteById(data)} ><i className="fas fa-trash-alt" /></span>
                                                                                 </td>

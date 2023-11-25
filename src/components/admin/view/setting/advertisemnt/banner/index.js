@@ -115,9 +115,9 @@ export default class AdvertBanner extends Component {
                                     </span>
                                     <img
                                         alt='Advertisement Banner'
-                                        src={this.state.priview ? this.state.priview : API_URL + "/advertbanner/" + this.state.advertbannerfilename}
+                                        src={this.state.priview ? this.state.priview : API_URL + "/api/advertbanner/" + this.state.advertbannerfilename}
                                         decoding="async" data-nimg="intrinsic"
-                                        srcset={`${this.state.priview ? this.state.priview : API_URL + "/advertbanner/" + this.state.advertbannerfilename} w=108 q=75 1x, ${this.state.priview ? this.state.priview : API_URL + "/advertbanner/" + this.state.advertbannerfilename}w=1920 q=75 2x`}
+                                        srcset={`${this.state.priview ? this.state.priview : API_URL + "/api/advertbanner/" + this.state.advertbannerfilename} w=108 q=75 1x, ${this.state.priview ? this.state.priview : API_URL + "/api/advertbanner/" + this.state.advertbannerfilename}w=1920 q=75 2x`}
                                         style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                 </span>
                             </div>

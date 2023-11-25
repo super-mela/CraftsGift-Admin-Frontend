@@ -123,7 +123,7 @@ export default class List extends Component {
                                                         <td>
                                                             <div className="cate-img-5">
                                                                 {/* <img src={row.image} alt={row.categoryName} /> */}
-                                                                <img src={API_URL + "/category/" + row.image} alt={row.name} />
+                                                                <img src={API_URL + "/api/category/" + row.image} alt={row.name} />
                                                             </div>
                                                         </td>
                                                         <td>{row.categoryName}</td>

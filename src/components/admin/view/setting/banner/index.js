@@ -90,11 +90,11 @@ export default class BannerImage extends Component {
                             </span>
                             <img
                                 alt="Banner"
-                                src={this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/bannerimage/" + this.state.bannerfilename}
+                                src={this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/api/bannerimage/" + this.state.bannerfilename}
                                 decoding="async"
                                 data-nimg="intrinsic"
                                 className="block rounded-lg"
-                                srcset={`${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/bannerimage/" + this.state.bannerfilename}w=1920 q=75 1x, ${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/bannerimage/" + this.state.bannerfilename}w=3840 q=75 2x`}
+                                srcset={`${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/api/bannerimage/" + this.state.bannerfilename}w=1920 q=75 1x, ${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/api/bannerimage/" + this.state.bannerfilename}w=3840 q=75 2x`}
                                 style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%' }} />
                         </span>
                         <div className="form-group pb-4">

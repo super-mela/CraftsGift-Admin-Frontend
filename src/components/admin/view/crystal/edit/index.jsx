@@ -202,7 +202,7 @@ export default class Edit extends Component {
                                                 <div className="form-group m-2">
                                                     <label className="form-label">old Image*</label>
                                                     <div className="cate-img-5">
-                                                        <img src={API_URL + "/crystal/" + this.state.oldfilename} alt="old" />
+                                                        <img src={API_URL + "/api/crystal/" + this.state.oldfilename} alt="old" />
                                                     </div>
                                                 </div>
 

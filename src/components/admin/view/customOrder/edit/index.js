@@ -140,7 +140,7 @@ export default class Edit extends Component {
                                                 </div>
                                                 <div className="col-lg-5" >
                                                     <div >
-                                                        <img className='image-card' src={API_URL + "/customorder/" + self.image} alt="Custom order" />
+                                                        <img className='image-card' src={API_URL + "/api/customorder/" + self.image} alt="Custom order" />
                                                     </div>
                                                 </div>
                                                 <div className="col-lg-7">

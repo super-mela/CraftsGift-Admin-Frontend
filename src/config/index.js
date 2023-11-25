@@ -2,7 +2,7 @@
 // const API_URL = "http://172.20.19.130:5000";
 const API_URL = document.domain === 'localhost'
   ? "http://localhost:5000"
-  : "https://gbackend.habeshagebeya.com";
+  : "http://65.1.227.114:5000";
 
 const Apis = {
   //Authentication api

@@ -235,9 +235,9 @@ export default class AboutUs extends Component {
                                     </span>
                                     <img
                                         alt='About Us'
-                                        src={this.state.sideprivew ? this.state.sideprivew : API_URL + "/aboutus/" + this.state.sidefilename}
+                                        src={this.state.sideprivew ? this.state.sideprivew : API_URL + "/api/aboutus/" + this.state.sidefilename}
                                         decoding="async" data-nimg="intrinsic"
-                                        srcset={`${this.state.sideprivew ? this.state.sideprivew : API_URL + "/aboutus/" + this.state.sidefilename} w=108 q=75 1x, ${this.state.sideprivew ? this.state.sideprivew : API_URL + "/aboutus/" + this.state.sidefilename}w=1920 q=75 2x`}
+                                        srcset={`${this.state.sideprivew ? this.state.sideprivew : API_URL + "/api/aboutus/" + this.state.sidefilename} w=108 q=75 1x, ${this.state.sideprivew ? this.state.sideprivew : API_URL + "/api/aboutus/" + this.state.sidefilename}w=1920 q=75 2x`}
                                         style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                 </span>
 
@@ -276,11 +276,11 @@ export default class AboutUs extends Component {
                             </span>
                             <img
                                 alt="About Us"
-                                src={this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/aboutus/" + this.state.bannerfilename}
+                                src={this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/api/aboutus/" + this.state.bannerfilename}
                                 decoding="async"
                                 data-nimg="intrinsic"
                                 className="block rounded-lg"
-                                srcset={`${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/aboutus/" + this.state.bannerfilename}w=1920 q=75 1x, ${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/aboutus/" + this.state.bannerfilename}w=3840 q=75 2x`}
+                                srcset={`${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/api/aboutus/" + this.state.bannerfilename}w=1920 q=75 1x, ${this.state.bannerprivew ? this.state.bannerprivew : API_URL + "/api/aboutus/" + this.state.bannerfilename}w=3840 q=75 2x`}
                                 style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: 'none', margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100%', minHeight: '100%', maxHeight: '100%' }} />
                         </span>
                         <div className="form-group pb-4">
@@ -337,9 +337,9 @@ export default class AboutUs extends Component {
                                         </span>
                                         <img
                                             alt='Founder'
-                                            src={item.priview ? item.priview : API_URL + "/aboutus/founders/" + item.founderfilename}
+                                            src={item.priview ? item.priview : API_URL + "/api/aboutus/founders/" + item.founderfilename}
                                             decoding="async" data-nimg="intrinsic"
-                                            srcset={`${item.priview ? item.priview : API_URL + "/aboutus/founders/" + item.founderfilename} w=108 q=75 1x, ${item.priview ? item.priview : API_URL + "/aboutus/founders/" + item.founderfilename}w=1920 q=75 2x`}
+                                            srcset={`${item.priview ? item.priview : API_URL + "/api/aboutus/founders/" + item.founderfilename} w=108 q=75 1x, ${item.priview ? item.priview : API_URL + "/api/aboutus/founders/" + item.founderfilename}w=1920 q=75 2x`}
                                             style={{ position: "absolute", inset: '0px', boxSizing: 'border-box', padding: '0px', border: "none", margin: "auto", display: "block", width: '0px', height: '0px', minWidth: '100%', maxWidth: '100', minHeight: '100%', maxHeight: '100%' }} />
                                     </span>
 

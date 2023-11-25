@@ -128,7 +128,7 @@ export default class List extends Component {
                                                         <td><input type="checkbox" className="check-item" name="ids[]" defaultValue={5} /></td>
                                                         <td>
                                                             <div className="cate-img-5">
-                                                                <img src={API_URL + "/offer/" + row.image} alt={row.name} />
+                                                                <img src={API_URL + "/api/offer/" + row.image} alt={row.name} />
                                                             </div>
                                                         </td>
                                                         <td>{row.name}</td>

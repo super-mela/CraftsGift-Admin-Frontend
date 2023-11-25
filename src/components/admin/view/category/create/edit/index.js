@@ -109,7 +109,7 @@ export default class Edit extends Component {
                                         <div className="form-group">
                                             <label className="form-label">old Image*</label>
                                             <div className="cate-img-5">
-                                                <img src={API_URL + "/category/" + this.props.state.image} alt="old" />
+                                                <img src={API_URL + "/api/category/" + this.props.state.image} alt="old" />
                                             </div>
                                         </div>
                                     </div>
